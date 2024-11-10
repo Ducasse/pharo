@@ -30,7 +30,7 @@ BaselineOfDrTests >> baseline: spec [
 { #category : 'actions' }
 BaselineOfDrTests >> postload: loader package: packageSpec [
 	
-	Smalltalk tools register: DrTests as: #testRunner.
+	self class environment tools register: DrTests as: #testRunner.
 
 ]
 

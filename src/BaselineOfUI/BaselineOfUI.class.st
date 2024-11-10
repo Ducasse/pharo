@@ -71,7 +71,7 @@ BaselineOfUI >> specBase: spec [
 	
 	spec baseline: 'SpecBase' with: [
 		spec 
-			repository: (self class environment at: #BaselineOfPharo) specRepository;
+			repository: (self classNamed: #BaselineOfPharo) specRepository;
 			className: 'BaselineOfSpec2';
 			loads: #('Base' 'Tests') ]
 ]

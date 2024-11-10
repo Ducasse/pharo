@@ -141,12 +141,6 @@ BaselineOfIDE >> baseline: spec [
 		spec package: 'Kernel-ExtraUtils' ]
 ]
 
-{ #category : 'actions' }
-BaselineOfIDE >> classNamed: aSymbol [
-
-	^ self class environment classNamed: aSymbol
-]
-
 { #category : 'baselines - dependencies' }
 BaselineOfIDE >> documentBrowserCore: spec [
 
@@ -196,6 +190,9 @@ BaselineOfIDE >> loadExtraTools [
 { #category : 'actions' }
 BaselineOfIDE >> loadIceberg [
 
+	| os |
+	os := self class environment os. 
+	
 	Metacello new
 		baseline: 'Iceberg';
 		repository: (self classNamed: #BaselineOfPharo) icebergRepository;
@@ -203,11 +200,11 @@ BaselineOfIDE >> loadIceberg [
 		load.
 	(self classNamed: #Iceberg) enableMetacelloIntegration: true.
 
-	Smalltalk os environment at: #GITHUB_TOKEN ifPresent: [ :token |
+	os environment at: #GITHUB_TOKEN ifPresent: [ :token |
 		| credentials |
 		credentials := (self classNamed: #IceTokenCredentials) new
 			               username:
-				               (Smalltalk os environment
+				               (os environment
 					                at: #GITHUB_USER
 					                ifAbsent: [ self error: 'Github token was found but not the github user associated to this token.' ]);
 			               token: token;
@@ -261,17 +258,19 @@ BaselineOfIDE >> pharoPluginClass [
 BaselineOfIDE >> postload: loader package: packageSpec [
 	"Ignore pre and post loads if already executed"
 
+	| tools | 
 	Initialized = true ifTrue: [ ^ self ].
 
 	"collect and process the standard tools registrations"
-	Smalltalk tools initDefaultToolSet.
+	tools := self class environment. 
+	tools initDefaultToolSet.
 
 	EpMonitor current enable.
 
-	Smalltalk tools register: ExternalChangesBrowser as: #changeList.
-	Smalltalk tools register: FileList as: #fileList.
-	Smalltalk tools register: Finder as: #finder.
-	Smalltalk tools register: ProcessBrowser as: #processBrowser.
+	tools register: ExternalChangesBrowser as: #changeList.
+	tools register: FileList as: #fileList.
+	tools register: Finder as: #finder.
+	tools register: ProcessBrowser as: #processBrowser.
 
 	(MorphicCoreUIManager readClassVariableNamed: #UIProcess) ifNotNil: [ :proc | proc terminate ].
 	MorphicCoreUIManager writeClassVariableNamed: #UIProcess   value: nil.
@@ -300,7 +299,7 @@ BaselineOfIDE >> postload: loader package: packageSpec [
 
 	RubAbstractTextArea highlightMessageSend: true.
 
-	(self class environment at: #PolymorphSystemSettings) defaultTheme beCurrent.
+	(self classNamed: #PolymorphSystemSettings) defaultTheme beCurrent.
 
 	SDL_Event initialize.
 
@@ -372,6 +371,7 @@ BaselineOfIDE >> registerProject: projectName externalProject: externalProject [
 
 { #category : 'private - register' }
 BaselineOfIDE >> registerProject: projectName externalProject: externalProject baseline: baselineName otherBaselines: anArray [
+
 	| baselineClass className |
 
 	className := ('BaselineOf', baselineName) asSymbol.

@@ -47,10 +47,10 @@ BaselineOfDisplay >> installBitmap [
 
 	| array |
 	
-	array := Smalltalk specialObjectsArray copy.
+	array := self class environment specialObjectsArray copy.
 	array at: 5 put: Bitmap.
 
-	Smalltalk specialObjectsArray becomeForward: array.
+	self class environment specialObjectsArray becomeForward: array.
 ]
 
 { #category : 'actions' }

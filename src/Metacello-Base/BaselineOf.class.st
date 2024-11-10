@@ -147,6 +147,12 @@ BaselineOf >> baseline: spec [
 	"
 ]
 
+{ #category : 'actions' }
+BaselineOf >> classNamed: aSymbol [
+
+	^ self class environment classNamed: aSymbol
+]
+
 { #category : 'accessing' }
 BaselineOf >> newProjectWithRepositoryDescription: aListOrRepositoryDescriptions [
 

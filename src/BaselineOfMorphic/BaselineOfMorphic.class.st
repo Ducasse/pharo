@@ -273,7 +273,7 @@ BaselineOfMorphic >> postload: loader package: packageSpec [
 	self loadBitmapDejaVuSans.
 	self loadBitmapSourcePro.
 
-	(Smalltalk globals at: #TextStyle) initialize.
+	(self className: #TextStyle) initialize.
 
 	Stdio stdout
 		nextPutAll: 'bitmap fonts loaded' asString;
@@ -352,8 +352,8 @@ BaselineOfMorphic >> preload: loader package: packageSpec [
 	SystemNotification signal: 'Starting preload action'.
 
 	"Declare global variables"
-	Smalltalk globals at: #World put: nil.
-	Smalltalk globals at: #ActiveWorld put: nil.
+	self class environment at: #World put: nil.
+	self class environment at: #ActiveWorld put: nil.
 	
 	initializersEnabled := MCMethodDefinition initializersEnabled.
 	MCMethodDefinition initializersEnabled: false.
