@@ -207,7 +207,7 @@ BaselineOfIDE >> loadIceberg [
 		| credentials |
 		credentials := (self classNamed: #IceTokenCredentials) new
 			               username:
-				               (Smalltalk os environment
+				               (self os environment
 					                at: #GITHUB_USER
 					                ifAbsent: [ self error: 'Github token was found but not the github user associated to this token.' ]);
 			               token: token;
@@ -290,7 +290,7 @@ BaselineOfIDE >> postload: loader package: packageSpec [
 	KMRepository reset.
 	Morph shortcutsHandler: KMShortcutHandler new.
 
-	ASTProgramNode formatterClass: (self class environment at: #EFFormatter ifAbsent: [ ASTSimpleFormatter ]).
+	ASTProgramNode formatterClass: (self classNamed: #EFFormatter ifAbsent: [ ASTSimpleFormatter ]).
 
 	Color flushCache.
 
@@ -301,7 +301,7 @@ BaselineOfIDE >> postload: loader package: packageSpec [
 
 	RubAbstractTextArea highlightMessageSend: true.
 
-	(self class environment at: #PolymorphSystemSettings) defaultTheme beCurrent.
+	(self classNamed: #PolymorphSystemSettings) defaultTheme beCurrent.
 
 	SDL_Event initialize.
 

@@ -154,6 +154,12 @@ BaselineOf >> classNamed: aSymbol [
 ]
 
 { #category : 'queries' }
+BaselineOf >> classNamed: aSymbol ifAbsent: absentBlock [
+
+	^ self class environment at: aSymbol asSymbol ifAbsent: absentBlock
+]
+
+{ #category : 'queries' }
 BaselineOf >> classNamed: aSymbol ifPresent: aBlock [
 
 	^ self class environment at: aSymbol asSymbol ifPresent: aBlock
