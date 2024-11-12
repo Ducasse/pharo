@@ -191,7 +191,7 @@ BaselineOfMorphic >> loadBitmapDejaVuSans [
 { #category : 'fonts' }
 BaselineOfMorphic >> loadBitmapFontFamily: familyName sizes: pointSizes [
 	| fonts fileName directoryReference |
-	directoryReference := (Smalltalk os environment
+	directoryReference := (self os environment
 		                       at: 'BOOTSTRAP_REPOSITORY'
 		                       ifAbsent: [ FileSystem workingDirectory ])
 		                      asFileReference / 'resources' / 'fonts'.
@@ -329,7 +329,7 @@ BaselineOfMorphic >> postload: loader package: packageSpec [
 	   #KMLog #LogicalFont #LucidaGrandeRegular #OSEnvironment
 	   #ScrollBarMorph #StrikeFont #SystemSettingsPersistence
 	   #TabMorph #TaskbarMorph #TextAction #TextConstants #TextStyle )
-		do: [ :each | (Smalltalk globals at: each) initialize ].
+		do: [ :each | (self classNamed: each) initialize ].
 
 	LogicalFontManager current addFontProvider:
 		FreeTypeFontProvider current.
@@ -352,8 +352,8 @@ BaselineOfMorphic >> preload: loader package: packageSpec [
 	SystemNotification signal: 'Starting preload action'.
 
 	"Declare global variables"
-	Smalltalk globals at: #World put: nil.
-	Smalltalk globals at: #ActiveWorld put: nil.
+	self class environment at: #World put: nil.
+	self class environment at: #ActiveWorld put: nil.
 	
 	initializersEnabled := MCMethodDefinition initializersEnabled.
 	MCMethodDefinition initializersEnabled: false.
