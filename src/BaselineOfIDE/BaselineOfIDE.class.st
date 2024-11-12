@@ -262,18 +262,18 @@ BaselineOfIDE >> postload: loader package: packageSpec [
 	Initialized = true ifTrue: [ ^ self ].
 
 	"collect and process the standard tools registrations"
-	tools := self class environment. 
-	tools initDefaultToolSet.
+	self tools initDefaultToolSet.
 
 	EpMonitor current enable.
 
-	tools register: ExternalChangesBrowser as: #changeList.
-	tools register: FileList as: #fileList.
-	tools register: Finder as: #finder.
-	tools register: ProcessBrowser as: #processBrowser.
+	self tools
+		register: ExternalChangesBrowser as: #changeList;
+		register: StFileSystemPresenter as: #fileList;
+		register: Finder as: #finder;
+		register: ProcessBrowser as: #processBrowser.
 
 	(MorphicCoreUIManager readClassVariableNamed: #UIProcess) ifNotNil: [ :proc | proc terminate ].
-	MorphicCoreUIManager writeClassVariableNamed: #UIProcess   value: nil.
+	MorphicCoreUIManager writeClassVariableNamed: #UIProcess value: nil.
 
 	PolymorphSystemSettings desktopColor: Color veryVeryLightGray lighter.
 	SourceCodeFonts setSourceCodeFonts: 10.

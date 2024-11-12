@@ -210,7 +210,7 @@ BaselineOf >> projectClass [
 { #category : 'queries' }
 BaselineOf >> tools [
 
-	^ self class environment tools
+	^ Smalltalk tools
 ]
 
 { #category : 'accessing' }
