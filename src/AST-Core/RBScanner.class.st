@@ -425,7 +425,7 @@ RBScanner >> scanLiteral [
 	(currentCharacter = $( or: [ currentCharacter = $[ ])
 		ifTrue: [ ^ self scanLiteralArrayToken ].
 	"Accept multiple #."
-	(currentCharacter = $# and: [ alreadySeenHash  ])
+	(currentCharacter = $# and: [ alreadySeenHash ifNotNil: [ :s | s ] ])
 		ifTrue: [ ^ self scanError: 'Multiple # sequence is forbidden' ].
 	currentCharacter = $#
 		ifTrue: [ 

@@ -965,7 +965,7 @@ ASTScannerTest >> testNextLiteralCharacterWithAMissingCharacter [
 { #category : 'tests - Start' }
 ASTScannerTest >> testNextLiteralStartAtFirstLetter [
 	| scanner token |
-	scanner := self buildScannerForText: '########literal'.
+	scanner := self buildScannerForText: '#literal'.
 	token := scanner next.
 	self assert: token isLiteralToken.
 	self assert: token start equals: 1
@@ -974,10 +974,10 @@ ASTScannerTest >> testNextLiteralStartAtFirstLetter [
 { #category : 'tests - Stop' }
 ASTScannerTest >> testNextLiteralStopAtLastLetter [
 	| scanner token |
-	scanner := self buildScannerForText: '########literal'.
+	scanner := self buildScannerForText: '#literal'.
 	token := scanner next.
 	self assert: token isLiteralToken.
-	self assert: token stop equals: 15
+	self assert: token stop equals: 8
 ]
 
 { #category : 'tests - Literal multiple hash' }
