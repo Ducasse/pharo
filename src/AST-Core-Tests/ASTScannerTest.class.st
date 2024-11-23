@@ -855,12 +855,14 @@ ASTScannerTest >> testNextLiteralCanContainDigits [
 	self assert: token value equals: #alpha123beta456
 ]
 
-{ #category : 'tests - Literal' }
+{ #category : 'tests - Literal multiple hash' }
 ASTScannerTest >> testNextLiteralCanHaveMultipleHashtag [
 	| scanner token |
 	scanner := self buildScannerForText: '########literal'.
 	token := scanner next.
-	self assert: token isLiteralToken
+	self deny: token isLiteralToken.
+	self assert: token isError.
+	self assert: token cause equals: 'Multiple # sequence is forbidden'
 ]
 
 { #category : 'tests - Literal' }
@@ -978,12 +980,13 @@ ASTScannerTest >> testNextLiteralStopAtLastLetter [
 	self assert: token stop equals: 15
 ]
 
-{ #category : 'tests - Literal' }
+{ #category : 'tests - Literal multiple hash' }
 ASTScannerTest >> testNextLiteralWithMultipleHashtagTrimThem [
 	| scanner token |
 	scanner := self buildScannerForText: '########literal'.
 	token := scanner next.
-	self assert: token value equals: 'literal'
+	self assert: token isError. 
+	self assert: token value equals: '##'
 ]
 
 { #category : 'tests - Keyword' }
