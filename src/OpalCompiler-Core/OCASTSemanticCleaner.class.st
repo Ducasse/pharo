@@ -1,15 +1,15 @@
 "
-I am cleaning the semantic analysis of the AST.
+I am cleaning the semantic analysis of the AST, i.e., I remove the scope properties that the semantic analysis put.
+I reset also the binding of the variables (from VariableNode to Variable hierarchy): VariableNodes see their variable status to unresolved. 
+I'm only used by reflectivity and should be packaged there.
 
--> scopes of Blocks and Methpd
--> binding from Variables
 "
 Class {
 	#name : 'OCASTSemanticCleaner',
 	#superclass : 'ASTProgramNodeVisitor',
-	#category : 'OpalCompiler-Core-Semantics',
+	#category : 'OpalCompiler-Core-ForReflectivity',
 	#package : 'OpalCompiler-Core',
-	#tag : 'Semantics'
+	#tag : 'ForReflectivity'
 }
 
 { #category : 'api' }

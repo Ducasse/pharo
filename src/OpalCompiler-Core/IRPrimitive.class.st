@@ -1,10 +1,10 @@
 "
 I represent a primitive.  I am more than just a number if I am a named primitive.
 
-Structure:
+## Instance variables
 
- num	<Integer>	Primitive number.
- spec	<Object>		Stored in first literal when num is 117 or 120.
+- num	<Integer>	 Primitive number.
+-  spec <Object> Stored in first literal when num is 117 or 120.
 
 "
 Class {
