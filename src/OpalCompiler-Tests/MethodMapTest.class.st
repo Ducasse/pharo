@@ -27,7 +27,7 @@ MethodMapTest >> inlinedBlockSourceNode [
 { #category : 'helpers' }
 MethodMapTest >> parseExpression: aString [
 
-	^ Parser parseExpression: aString
+	^ OCParser parseExpression: aString
 ]
 
 { #category : 'tests - ast mapping' }

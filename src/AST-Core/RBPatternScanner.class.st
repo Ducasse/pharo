@@ -4,7 +4,7 @@ RBPatternScanner is a subclass of RBScanner that allows the extended syntax of p
 "
 Class {
 	#name : 'RBPatternScanner',
-	#superclass : 'RBScanner',
+	#superclass : 'OCScanner',
 	#category : 'AST-Core-Parser',
 	#package : 'AST-Core',
 	#tag : 'Parser'
@@ -17,7 +17,7 @@ RBPatternScanner >> scanPatternVariable [
 	currentCharacter = ${
 		ifTrue:
 			[self step.
-			^ASTPatternBlockToken value: '`{' start: tokenStart].
+			^OCPatternBlockToken value: '`{' start: tokenStart].
 	[characterType = #alphabetic] whileFalse:
 			[characterType = #eof
 				ifTrue: [ ^ self scanError: 'Meta variable expected'].

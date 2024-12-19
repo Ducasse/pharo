@@ -64,7 +64,7 @@ RBSearchTest >> buildSimpleLiteralSearch [
 		matchesAnyTreeOf:
 			(Array
 				with:
-					(Parser
+					(OCParser
 						parseExpression:
 							'#(''bugs'' ''possible bugs'' ''unnecessary code'' ''intention revealing'' ''miscellaneous'')'))
 		do: [ :aNode :answer |

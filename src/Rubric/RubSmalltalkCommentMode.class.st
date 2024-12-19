@@ -45,11 +45,11 @@ RubSmalltalkCommentMode >> isCompletionEnabled [
 { #category : 'parsing' }
 RubSmalltalkCommentMode >> parseExpression: aString [
 
-	^ Parser parseFaultyExpression: aString
+	^ OCParser parseFaultyExpression: aString
 ]
 
 { #category : 'parsing' }
 RubSmalltalkCommentMode >> parseSource: aString [
 
-	^ Parser parseFaultyExpression: aString
+	^ OCParser parseFaultyExpression: aString
 ]

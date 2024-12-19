@@ -63,7 +63,7 @@ TaRenameSlot >> sourceCodeAt: aSelector [
 	| originalSourceCode parseTree rewriter |
 	originalSourceCode := super sourceCodeAt: aSelector.
 
-	parseTree := Parser parseMethod: originalSourceCode.
+	parseTree := OCParser parseMethod: originalSourceCode.
 	rewriter := ASTParseTreeRewriter new.
 
 	renames do: [:rename |

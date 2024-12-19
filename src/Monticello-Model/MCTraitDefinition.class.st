@@ -119,7 +119,7 @@ MCTraitDefinition >> requirements [
 	self hasTraitComposition
 		ifFalse: [ ^ #() ].
 
-	^ (((Parser parseExpression: self traitCompositionString)
+	^ (((OCParser parseExpression: self traitCompositionString)
 		allChildren select: [ :e | e isVariable ])
 		collect: [ :e | e name ]
 		as: Set) asArray

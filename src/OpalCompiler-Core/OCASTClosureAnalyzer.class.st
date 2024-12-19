@@ -4,7 +4,7 @@ I annotate the AST to generate temp vector.
 "
 Class {
 	#name : 'OCASTClosureAnalyzer',
-	#superclass : 'ASTProgramNodeVisitor',
+	#superclass : 'OCProgramNodeVisitor',
 	#instVars : [
 		'scope'
 	],

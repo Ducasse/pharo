@@ -3,7 +3,7 @@ I visit an abstract syntax tree and generate IR (intermediate representation) in
 "
 Class {
 	#name : 'OCASTTranslator',
-	#superclass : 'ASTProgramNodeVisitor',
+	#superclass : 'OCProgramNodeVisitor',
 	#instVars : [
 		'methodBuilder',
 		'nextUniqueInlineID'

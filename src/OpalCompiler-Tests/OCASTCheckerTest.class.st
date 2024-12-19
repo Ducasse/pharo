@@ -260,9 +260,9 @@ OCASTCheckerTest >> testSemanticAnalysisOnNonMethodNode [
 			ast := object sourceNode].
 	#('1' 'true' 'nil' '1 + 2' '^1' '1 + 2. 2 + 3' '#(1 true)' '{ #foo . 1 }' '1+2;+3')
 		do: [ :source |
-			ast := Parser parseExpression: source.
+			ast := OCParser parseExpression: source.
 			ast doSemanticAnalysis ].
-	ast := Parser parseMethod: 'foo 1 + 2'.
+	ast := OCParser parseMethod: 'foo 1 + 2'.
 	ast doSemanticAnalysis
 ]
 

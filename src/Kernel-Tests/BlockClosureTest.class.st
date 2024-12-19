@@ -405,7 +405,7 @@ BlockClosureTest >> testOneArgument [
 
 { #category : 'tests - printing' }
 BlockClosureTest >> testPrintOn [
-	self assert: (Parser parseExpression: [ 1 + 2 ] printString) equals: (Parser parseExpression: '[ 1 + 2 ]')
+	self assert: (OCParser parseExpression: [ 1 + 2 ] printString) equals: (OCParser parseExpression: '[ 1 + 2 ]')
 ]
 
 { #category : 'tests - printing' }
@@ -417,7 +417,7 @@ BlockClosureTest >> testPrintOnBlockDefinedInMethodWithoutSourceCode [
 	
 	block := method valueWithReceiver: nil.
 	"we compare the ast to not depend on pretty printer settings"
-	self assert: (Parser parseExpression: block printString) equals: (Parser parseExpression: '[ 1 + 2 ]').
+	self assert: (OCParser parseExpression: block printString) equals: (OCParser parseExpression: '[ 1 + 2 ]').
 ]
 
 { #category : 'tests' }

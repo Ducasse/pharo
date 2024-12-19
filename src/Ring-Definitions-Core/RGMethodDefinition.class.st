@@ -190,7 +190,7 @@ RGMethodDefinition >> ast [
 
 { #category : 'private' }
 RGMethodDefinition >> astFromSource [
-	^ Parser parseMethod: self sourceCode
+	^ OCParser parseMethod: self sourceCode
 ]
 
 { #category : 'stamp values' }

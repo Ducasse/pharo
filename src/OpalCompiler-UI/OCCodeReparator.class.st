@@ -46,7 +46,7 @@ OCCodeReparator >> declareTempAndPaste: name [
 	theTextString := self requestor text.
 
 	"We parse again the method displayed in the morph. The variable methodNode has the first version of the method, without temporary declarations. "
-	newMethodNode := Parser parseMethod: theTextString.
+	newMethodNode := OCParser parseMethod: theTextString.
 
 	"We check if there is a declaration of temporary variables"
 	tempsMark :=  newMethodNode body  rightBar ifNil: [ node methodNode body start ].

@@ -38,6 +38,6 @@ ReIconHardcodedMessageRule >> initialize [
 	self
 		replace: 'Smalltalk ui icons `iconName'
 		byEvaluating: [ :node :matchMap |
-			Parser
+			OCParser
 				parseExpression: 'self iconNamed: #' , (matchMap at: #'`iconName') ]
 ]

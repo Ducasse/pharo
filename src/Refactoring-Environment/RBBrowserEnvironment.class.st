@@ -679,7 +679,7 @@ RBBrowserEnvironment >> selectionIntervalFor: aString [
 { #category : 'accessing' }
 RBBrowserEnvironment >> selectionParseTreeIntervalFor: aString [
 	| parseTree answerBlock |
-	parseTree := Parser
+	parseTree := OCParser
 		parseMethod: aString
 		onError: [ :str :pos | ^ nil ].
 	answerBlock := [ :aNode :answer | ^ aNode sourceInterval ].

@@ -41,7 +41,7 @@ RBCondition class >> checkClassVarName: aName in: aClass [
 	(Symbol reservedLiterals includes: string) ifTrue: [^false].
 	string isEmpty ifTrue: [^false].
 	string first isUppercase ifFalse: [^false].
-	^RBScanner isVariable: string
+	^OCScanner isVariable: string
 ]
 
 { #category : 'utilities' }
@@ -53,7 +53,7 @@ RBCondition class >> checkInstanceVariableName: aName in: aClass [
 	string ifEmpty: [ ^ false ].
 	(Symbol reservedLiterals includes: string) ifTrue: [ ^ false ].
 	string first isUppercase ifTrue: [ ^ false ].
-	^ RBScanner isVariable: string
+	^ OCScanner isVariable: string
 ]
 
 { #category : 'utilities' }

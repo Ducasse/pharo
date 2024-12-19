@@ -518,7 +518,7 @@ CDFluidClassParserTest >> testWithRB [
 		sharedVariables: {};
 		package: '''''
 	 	do: [ :aNode :answer |  dict:= searcher context ].
-	dict := searcher executeTree: (Parser parseExpression: 'Object << #MyClass
+	dict := searcher executeTree: (OCParser parseExpression: 'Object << #MyClass
 		slots: {};
 		sharedVariables: {};
 		package: ''''')
@@ -534,7 +534,7 @@ CDFluidClassParserTest >> testWithRB10 [
 		matches: 'Trait << `@symb classTrait' do: [:aNode :answer | kind := #traitClass ];
 		matches: '`@tm << `#symb' do: [:aNode :answer | kind := #instance ];
 		matches: '`@tm class << `@symb class' do: [:aNode :answer | kind := #class ].
-	searcher executeTree: (Parser parseExpression: '
+	searcher executeTree: (OCParser parseExpression: '
 		Trait << TViewModelMock3 classTrait
 	') .
 	self assert: kind equals: #traitClass.
@@ -554,7 +554,7 @@ CDFluidClassParserTest >> testWithRB10WithError [
 		matches: 'Trait << `@symb classTrait' do: [:aNode :answer | kind := #traitClass ];
 		matches: '`@tm << `#symb' do: [:aNode :answer | kind := #instance ];
 		matches: '`@tm class << `@symb class' do: [:aNode :answer | kind := #class ].
-	searcher executeTree: (Parser parseExpression: '
+	searcher executeTree: (OCParser parseExpression: '
 		Trait << TViewModelMock3 class
 	') .
 	self assert: kind isNil.
@@ -572,7 +572,7 @@ CDFluidClassParserTest >> testWithRB3 [
 	searcher
 		matches: '^self' do: [:aNode :answer | coll add: aNode ];
 		matches: '^`@anything' do: [:aNode :answer |  coll add: aNode].
-	searcher executeTree: (Parser parseMethod: 'foo
+	searcher executeTree: (OCParser parseMethod: 'foo
 	|tmp|
 	tmp := 22.
 	^ 42').
@@ -588,7 +588,7 @@ CDFluidClassParserTest >> testWithRB4 [
 	searcher
 		matches: '`@tm := `@val' do: [:aNode :answer | coll add: aNode ];
 		matches: '^`@anything' do: [:aNode :answer | coll add: aNode].
-	searcher executeTree: (Parser parseMethod: 'foo
+	searcher executeTree: (OCParser parseMethod: 'foo
 	| tmp |
 	tmp := 22.
 	tmp := 55.
@@ -607,7 +607,7 @@ CDFluidClassParserTest >> testWithRB5 [
 		matches: '`@tm class << `@symb class' do: [:aNode :answer | coll add: #class ];
 		matches: 'Trait << `#traitSymbol' do: [:aNode :answer | coll add: #traitInstance ];
 		matches: 'Trait << `@symb classTrait' do: [:aNode :answer | coll add: #traitClass ].
-	searcher executeTree: (Parser parseExpression: '
+	searcher executeTree: (OCParser parseExpression: '
 		Object << #Point
 		  slots: { #x . #y };
 			package: ''Foo''
@@ -627,7 +627,7 @@ CDFluidClassParserTest >> testWithRB6 [
 		matches: '`@tm class << `@symb class' do: [:aNode :answer | coll add: #class ];
 		matches: 'Trait << `#traitSymbol' do: [:aNode :answer | coll add: #traitInstance ];
 		matches: 'Trait << `@symb classTrait' do: [:aNode :answer | coll add: #traitClass ].
-	searcher executeTree: (Parser parseExpression: '
+	searcher executeTree: (OCParser parseExpression: '
 		Object class << #Point class
 		  slots: { #x . #y };
 			package: ''Foo''
@@ -647,7 +647,7 @@ CDFluidClassParserTest >> testWithRB7 [
 		matches: '`@tm class << `@symb class' do: [:aNode :answer | coll add: #class ];
 		matches: 'Trait << `#traitSymbol' do: [:aNode :answer | coll add: #traitInstance ];
 		matches: 'Trait << `@symb classTrait' do: [:aNode :answer | coll add: #traitClass ].
-	searcher executeTree: (Parser parseExpression: '
+	searcher executeTree: (OCParser parseExpression: '
 		Trait << #TPoint classTrait
 		  slots: { #x . #y };
 			package: ''Foo''
@@ -667,7 +667,7 @@ CDFluidClassParserTest >> testWithRB8 [
 		matches: '`@tm << `#symb' do: [:aNode :answer | coll add: #instance ];
 		matches: '`@tm class << `@symb class' do: [:aNode :answer | coll add: #class ];
 		matches: 'Trait << `@symb classTrait' do: [:aNode :answer | coll add: #traitClass ].
-	searcher executeTree: (Parser parseExpression: '
+	searcher executeTree: (OCParser parseExpression: '
 		Trait << #Point
 		  slots: { #x . #y };
 			package: ''Foo''
@@ -687,7 +687,7 @@ CDFluidClassParserTest >> testWithRB9 [
 		matches: '`@tm << `#symb' do: [:aNode :answer | coll add: #instance ];
 		matches: '`@tm class << `@symb class' do: [:aNode :answer | coll add: #class ];
 		matches: 'Trait << `@symb classTrait' do: [:aNode :answer | coll add: #traitClass ].
-	searcher executeTree: (Parser parseExpression: '
+	searcher executeTree: (OCParser parseExpression: '
 		Object << #MyObject
 		sharedVariables: { #A . #B };
 		package: ''MyPackage''

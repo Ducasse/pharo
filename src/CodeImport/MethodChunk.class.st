@@ -74,7 +74,7 @@ MethodChunk >> isMethodDeclaration [
 { #category : 'accessing' }
 MethodChunk >> methodSelector [
 
-	^ Parser parseMethodPattern: self contents
+	^ OCParser parseMethodPattern: self contents
 ]
 
 { #category : 'accessing' }

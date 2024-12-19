@@ -529,7 +529,7 @@ CDFluidClassDefinitionParser >> parseSelectorPart: aString withArgument: aNode [
 
 { #category : 'private - class factory' }
 CDFluidClassDefinitionParser >> parserClass [
-	^ Parser
+	^ OCParser
 ]
 
 { #category : 'private - class factory' }

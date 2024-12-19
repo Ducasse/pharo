@@ -4,7 +4,7 @@ RBPatternParser is a subclass of RBParser that allows the extended syntax that c
 "
 Class {
 	#name : 'PatternParser',
-	#superclass : 'Parser',
+	#superclass : 'OCParser',
 	#category : 'AST-Core-Parser',
 	#package : 'AST-Core',
 	#tag : 'Parser'
@@ -12,12 +12,12 @@ Class {
 
 { #category : 'private - classes' }
 PatternParser >> messageNodeClass [
-	^ASTPatternMessageNode
+	^OCPatternMessageNode
 ]
 
 { #category : 'private - classes' }
 PatternParser >> methodNodeClass [
-	^ASTPatternMethodNode
+	^OCPatternMethodNode
 ]
 
 { #category : 'private - parsing' }
@@ -66,14 +66,14 @@ PatternParser >> parsePatternBlock: aClass [
 PatternParser >> parsePragmaLiteral [
 	| node |
 	currentToken isPatternBlock
-		ifTrue: [ ^ self parsePatternBlock: ASTPatternBlockNode ].
+		ifTrue: [ ^ self parsePatternBlock: OCPatternBlockNode ].
 	(currentToken isIdentifier and: [ currentToken isPatternVariable ]) ifTrue: [
 		node := self variableNodeClass identifierNamed: currentToken value at: currentToken start.
 		node isLiteralNode
 			ifFalse: [ self parseError: 'Literal pattern expected' ].
 		self step.
 		currentToken isPatternBlock ifTrue: [
-			node := (self parsePatternBlock: ASTPatternWrapperBlockNode)
+			node := (self parsePatternBlock: OCPatternWrapperBlockNode)
 				wrappedNode: node;
 				yourself ].
 		^ node ].
@@ -90,7 +90,7 @@ PatternParser >> parsePrimitiveLiteral [
 				ifTrue:
 					[self step.
 					^node].
-			currentToken := ASTLiteralToken
+			currentToken := OCLiteralToken
 						value: currentToken value asSymbol
 						start: currentToken start
 						stop: currentToken stop].
@@ -100,7 +100,7 @@ PatternParser >> parsePrimitiveLiteral [
 { #category : 'private - parsing' }
 PatternParser >> parsePrimitiveObject [
 	currentToken isPatternBlock
-		ifTrue: [^self parsePatternBlock: ASTPatternBlockNode].
+		ifTrue: [^self parsePatternBlock: OCPatternBlockNode].
 	^super parsePrimitiveObject
 ]
 
@@ -127,8 +127,8 @@ PatternParser >> parseUnaryMessage [
 PatternParser >> parseWrapperPatternBlockWith: wrappedNode [
 	| node |
 
-	node := self parsePatternBlock: ASTPatternWrapperBlockNode.
-	node class == ASTPatternWrapperBlockNode ifTrue: [
+	node := self parsePatternBlock: OCPatternWrapperBlockNode.
+	node class == OCPatternWrapperBlockNode ifTrue: [
 		self flag: 'I think this is ugly, but I don''t know how to avoid checking the result of #parsePatternBlock:'.
 		node wrappedNode: wrappedNode ].
 
@@ -137,7 +137,7 @@ PatternParser >> parseWrapperPatternBlockWith: wrappedNode [
 
 { #category : 'private - classes' }
 PatternParser >> pragmaNodeClass [
-	^ASTPatternPragmaNode
+	^OCPatternPragmaNode
 ]
 
 { #category : 'accessing' }
@@ -147,5 +147,5 @@ PatternParser >> scannerClass [
 
 { #category : 'private - classes' }
 PatternParser >> variableNodeClass [
-	^ASTPatternVariableNode
+	^OCPatternVariableNode
 ]

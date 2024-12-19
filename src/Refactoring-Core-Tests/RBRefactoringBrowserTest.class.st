@@ -35,7 +35,7 @@ RBRefactoringBrowserTest >> parseMethod: aString [
 
 { #category : 'private' }
 RBRefactoringBrowserTest >> parserClass [
-	^ Parser
+	^ OCParser
 ]
 
 { #category : 'private' }

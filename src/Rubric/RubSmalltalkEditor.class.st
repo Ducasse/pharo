@@ -201,8 +201,8 @@ RubSmalltalkEditor >> bestNodeInTextArea [
 
 	"We build the AST (which can be faulty when we are scripting) then ask the best node for the interval."
 	^ (self isScripting
-		   ifTrue: [ Parser parseFaultyExpression: self textArea string ]
-		   ifFalse: [ Parser parseFaultyMethod: self textArea string ]) bestNodeFor: (self textArea startIndex to: self textArea stopIndex)
+		   ifTrue: [ OCParser parseFaultyExpression: self textArea string ]
+		   ifFalse: [ OCParser parseFaultyMethod: self textArea string ]) bestNodeFor: (self textArea startIndex to: self textArea stopIndex)
 ]
 
 { #category : 'source navigation' }
@@ -240,8 +240,8 @@ RubSmalltalkEditor >> bestNodeInTextAreaWithoutSelection [
 					 ifTrue: [ self textArea string ].
 
 	node := self isScripting
-		ifTrue: [ Parser parseFaultyExpression: intervalTrimmedText ]
-		ifFalse: [ Parser parseFaultyMethod: intervalTrimmedText ].
+		ifTrue: [ OCParser parseFaultyExpression: intervalTrimmedText ]
+		ifFalse: [ OCParser parseFaultyMethod: intervalTrimmedText ].
 
 	^node bestNodeFor: (start to: start)
 ]
@@ -396,7 +396,7 @@ RubSmalltalkEditor >> computeSelectionIntervalForCurrentLine [
 { #category : 'private' }
 RubSmalltalkEditor >> computeSelectionIntervalFromCommentIn: aString at: anInterval [
 	| comment commentInterval |
-	comment := (RBScanner on: (aString copyFrom: anInterval first to: anInterval last) readStream) getComments.
+	comment := (OCScanner on: (aString copyFrom: anInterval first to: anInterval last) readStream) getComments.
 	comment ifNil: [ ^ 0 to: -1 ].
 	commentInterval := comment first.
 	^ commentInterval first + 1 to: commentInterval last - 1

@@ -34,5 +34,5 @@ CoMockMethod >> methodClass: aCoMockClass [
 { #category : 'accessing' }
 CoMockMethod >> source: aString [
 
-	ast := Parser parseMethod: aString
+	ast := OCParser parseMethod: aString
 ]

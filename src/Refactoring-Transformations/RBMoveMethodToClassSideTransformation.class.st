@@ -78,13 +78,13 @@ RBMoveMethodToClassSideTransformation >> getNewSource [
 
 	| rewriter node temp |
 	temp := self temporaryName.
-	node := Parser parseMethod: method source.
+	node := OCParser parseMethod: method source.
 	rewriter := ASTParseTreeRewriter new replace: 'self' with: temp.
 	(rewriter executeTree: node)
 		ifTrue: [
-			node := Parser parseMethod: rewriter tree formattedCode.
+			node := OCParser parseMethod: rewriter tree formattedCode.
 			node body addNodeFirst:
-				(Parser parseExpression: temp , ' := self new').
+				(OCParser parseExpression: temp , ' := self new').
 			node body addTemporaryNamed: temp.
 			^ node newSource ]
 		ifFalse: [ ^ node sourceCode ]

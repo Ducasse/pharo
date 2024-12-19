@@ -11,7 +11,7 @@ I only rewrite nodes with ""reconstructed"" property to ensure that I reoptimize
 "
 Class {
 	#name : 'FBDOptimizedMessagesRewriter',
-	#superclass : 'ASTProgramNodeVisitor',
+	#superclass : 'OCProgramNodeVisitor',
 	#category : 'Flashback-Decompiler-Utilities',
 	#package : 'Flashback-Decompiler',
 	#tag : 'Utilities'

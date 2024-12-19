@@ -340,7 +340,7 @@ ReAbstractTransformation >> parseTreeSearcherClass [
 
 { #category : 'parsing' }
 ReAbstractTransformation >> parserClass [
-	^ Parser
+	^ OCParser
 ]
 
 { #category : 'transforming' }

@@ -19,7 +19,7 @@ RBParseTreeEnvironment >> selectionIntervalFor: aString [
 	| parseTree node |
 
 	matcher ifNil: [ ^ super selectionIntervalFor: aString ].
-	parseTree := Parser
+	parseTree := OCParser
 		parseMethod: aString
 		onError: [ :error :position | ^ super selectionIntervalFor: aString ].
 	node := matcher executeTree: parseTree initialAnswer: nil.

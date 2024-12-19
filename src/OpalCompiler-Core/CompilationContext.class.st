@@ -593,7 +593,7 @@ CompilationContext >> parseOptions: optionsArray [
 
 { #category : 'accessing' }
 CompilationContext >> parserClass [
-	^ parserClass ifNil: [ parserClass := Parser ]
+	^ parserClass ifNil: [ parserClass := OCParser ]
 ]
 
 { #category : 'accessing' }

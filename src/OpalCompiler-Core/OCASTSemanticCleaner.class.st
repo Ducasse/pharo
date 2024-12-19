@@ -6,7 +6,7 @@ I'm only used by reflectivity and should be packaged there.
 "
 Class {
 	#name : 'OCASTSemanticCleaner',
-	#superclass : 'ASTProgramNodeVisitor',
+	#superclass : 'OCProgramNodeVisitor',
 	#category : 'OpalCompiler-Core-ForReflectivity',
 	#package : 'OpalCompiler-Core',
 	#tag : 'ForReflectivity'

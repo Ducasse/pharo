@@ -72,7 +72,7 @@ RBAbstractRefactoringTest >> parseMethod: aString [
 
 { #category : 'parsing' }
 RBAbstractRefactoringTest >> parserClass [
-	^ Parser
+	^ OCParser
 ]
 
 { #category : 'accessing' }
