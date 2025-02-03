@@ -46,7 +46,10 @@ EpBrowseVisitor >> visitMethodChange: aChange [
 		ifPresent: [ :behavior |
 			behavior
 				compiledMethodAt: aChange methodAffectedSelector
-				ifPresent: [ :p | self browseClass: p class ]
+				ifPresent: [ :p | 
+										application tools browser 
+											openOnClass: p methodClass  
+											selector: p selector ]
 				ifAbsent: [
 					application inform:
 						'Cannot find ', behavior asString, '>>', aChange methodAffectedSelector.
