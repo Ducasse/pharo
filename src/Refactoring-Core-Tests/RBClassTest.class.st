@@ -17,7 +17,7 @@ Class {
 RBClassTest >> setUp [
 
 	super setUp.
-	rbNamespace := RBNamespace onEnvironment: (RBClassEnvironment classes:  {Behavior. Class. ClassDescription. MOPTestClassD. Model. MyClassB. Object. Object. Object class. ProtoObject class. ReAbstractTransformation. ReAbstractTransformation. RBClassRefactoring. ReRefactoring. Trait2}).
+	rbNamespace := RBNamespace onEnvironment: (RBClassEnvironment classes:  {Behavior. Class. ClassDescription. MOPTestClassD. Model. MyClassB. Object. Object. Object class. ProtoObject class. ReAbstractTransformation. ReAbstractTransformation. RBClassRefactoring. ReRefactoring. Trait2 . MyClassA . MyClassB . RBEquivalentMethodSubclassHolder . RBEquivalentMethodRootHolder}).
 	abstractTransformationClass := rbNamespace classNamed: #ReAbstractTransformation.
 	objectClass := rbNamespace classNamed: #Object.
 	refactoringClass := rbNamespace classNamed: #RBClassRefactoring.
@@ -162,6 +162,22 @@ RBClassTest >> testHierarchy [
 	self assert: (meta withAllSuperclasses includes: objectClass)
 ]
 
+{ #category : 'tests - definition' }
+RBClassTest >> testHierarchyDefinesClassVariable [ 
+
+	| rootClass middleClass |
+
+	rootClass := rbNamespace classNamed: #MyClassA.
+	middleClass := rbNamespace classNamed: #MyClassB.
+
+	self deny: (rootClass hierarchyDefinesClassVariable: #ClassVariable1).
+	self assert: (rootClass hierarchyDefinesClassVariable: #ClassVarName1).
+
+	self deny: (middleClass hierarchyDefinesClassVariable: #ClassVariable1).
+	self assert: (middleClass hierarchyDefinesClassVariable: #ClassVarName1).	
+	
+]
+
 { #category : 'tests - navigation' }
 RBClassTest >> testIsEmptyClass [
 	
@@ -232,6 +248,28 @@ RBClassTest >> testIsMeta [
 RBClassTest >> testObjectIsNotAbstract [
 	self deny: objectClass isAbstract.
 	self deny: objectClass classSide isAbstract
+]
+
+{ #category : 'tests - defining methods' }
+RBClassTest >> testSuperclassRedefines [
+
+	| rootClass leafClass |
+
+	rootClass := rbNamespace classNamed: #RBEquivalentMethodRootHolder.
+	leafClass := rbNamespace classNamed: #RBEquivalentMethodSubclassHolder.
+	self 
+		assert: (leafClass superclassRedefines: #someNumber)
+		description: 'It test that superclass already defines the existing superimplementor'.
+
+	self
+		deny: (leafClass superclassRedefines: #anotherMethod:)
+		description: 'It test that superclass does not define a defined subimplementor'.
+
+	self
+		assert: (leafClass superclassRedefines: #yourself)
+		description: 'It test that a non-direct superclass defined the method'
+
+
 ]
 
 { #category : 'tests - defining methods' }
