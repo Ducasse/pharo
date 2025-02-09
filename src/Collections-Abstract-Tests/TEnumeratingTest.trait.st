@@ -124,3 +124,21 @@ TEnumeratingTest >> testFlattened [
 	"we do not try to flatten CompiledMethods"
 	self assert: { Object>>#halt } flattened equals:  { Object>>#halt }
 ]
+
+{ #category : 'tests - enumerating' }
+TEnumeratingTest >> testTwoByTwoEven [
+	
+	| o |
+	o := OrderedCollection new. 
+	#(10 1 20 2 30 3 40 4) doTwoByTwo: [ :f :s | o add: f + s ].
+	self assert: o asArray equals: #(11 22 33 44)
+]
+
+{ #category : 'tests - enumerating' }
+TEnumeratingTest >> testTwoByTwoOdd [
+	
+	| o |
+	o := OrderedCollection new. 
+	#(10 1 20 2 30 3 40 4 50) doTwoByTwo: [ :f :s | o add: f + s ].
+	self assert: o asArray equals: #(11 22 33 44)
+]

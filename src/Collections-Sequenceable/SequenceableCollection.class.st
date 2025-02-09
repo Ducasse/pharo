@@ -758,6 +758,16 @@ SequenceableCollection >> do: aBlock without: anItem [
 		[:index | anItem = (self at: index) ifFalse:[aBlock value: (self at: index)]]
 ]
 
+{ #category : 'enumerating' }
+SequenceableCollection >> doTwoByTwo: aTwoArgsBlockClosure [ 
+	"does not treat the last element if the receiver size is odd"
+
+	| c |
+	c := self size // 2.
+	1 to: c do: [ :i | aTwoArgsBlockClosure value: (self at: (i * 2) - 1) value: (self at: i *2) ].
+	
+]
+
 { #category : 'accessing' }
 SequenceableCollection >> eighth [
 	"Answer the eighth element of the receiver.
