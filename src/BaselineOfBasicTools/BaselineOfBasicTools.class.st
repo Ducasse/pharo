@@ -184,8 +184,6 @@ BaselineOfBasicTools >> postload: loader package: packageSpec [
 		 { #RBReadBeforeWrittenTester. #ASTReadBeforeWrittenTester }.
 	 OCProgramNodeVisitor deprecatedAliases:
 		 { #RBProgramNodeVisitor. #ASTProgramNodeVisitor }.
-	 OCReturnNodeAdderVisitor deprecatedAliases:
-		 { #RBReturnNodeAdderVisitor. #ASTReturnNodeAdderVisitor }.
 	 OCParseErrorNodeVisitor deprecatedAliases:
 		 { #RBParseErrorNodeVisitor. #ASTParseErrorNodeVisitor }.
 	 OCCommentNodeVisitor deprecatedAliases:

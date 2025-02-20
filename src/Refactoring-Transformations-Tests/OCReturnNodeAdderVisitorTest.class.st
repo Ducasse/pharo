@@ -1,9 +1,8 @@
 Class {
 	#name : 'OCReturnNodeAdderVisitorTest',
 	#superclass : 'OCParseTreeTest',
-	#category : 'AST-Core-Tests-Visitors',
-	#package : 'AST-Core-Tests',
-	#tag : 'Visitors'
+	#category : 'Refactoring-Transformations-Tests',
+	#package : 'Refactoring-Transformations-Tests'
 }
 
 { #category : 'tests' }
