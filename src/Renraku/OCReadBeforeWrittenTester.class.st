@@ -16,10 +16,15 @@ Class {
 		'checkNewTemps',
 		'scopeStack'
 	],
-	#category : 'AST-Core-Visitors',
-	#package : 'AST-Core',
-	#tag : 'Visitors'
+	#category : 'Renraku',
+	#package : 'Renraku'
 }
+
+{ #category : 'testing' }
+OCReadBeforeWrittenTester class >> isAbstract [
+
+	^ self == OCReadBeforeWrittenTester
+]
 
 { #category : 'accessing' }
 OCReadBeforeWrittenTester class >> isVariable: aString readBeforeWrittenIn: aBRProgramNode [

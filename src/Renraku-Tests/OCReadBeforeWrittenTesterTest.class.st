@@ -4,9 +4,8 @@ SUnit tests for ASTReadBeforeWrittenTester
 Class {
 	#name : 'OCReadBeforeWrittenTesterTest',
 	#superclass : 'OCParseTreeTest',
-	#category : 'AST-Core-Tests-Visitors',
-	#package : 'AST-Core-Tests',
-	#tag : 'Visitors'
+	#category : 'Renraku-Tests',
+	#package : 'Renraku-Tests'
 }
 
 { #category : 'tests' }
