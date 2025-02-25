@@ -69,6 +69,7 @@ BaselineOfIDE >> baseline: spec [
 		spec package: 'Rubric-SpecFindReplaceDialog'.
 
 		spec package: 'OpalCompiler-UI'.
+		spec package: 'OpalCompiler-UI-Tests'.
 
 		self load: 'Metacello' group: 'Tests' spec: spec.
 

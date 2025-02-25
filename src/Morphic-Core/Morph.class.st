@@ -3574,7 +3574,7 @@ Morph >> inspectAt: aPoint event: evt [
 
 { #category : 'menus' }
 Morph >> inspectInMorphic: evt [
-	Smalltalk tools inspector inspect: self
+	(Smalltalk tools toolNamed: #inspector) inspect: self
 ]
 
 { #category : 'debug and other' }
@@ -4475,7 +4475,7 @@ Morph >> on: aShortcut do: anAction [
 	self
 		deprecated: 'Use bindKeyCombination:toAction:'
 		on: '16/11/2024'
-		in: #Pharo13
+		in: 'pharo13'
 		transformWith: '`@receiver on: `@aShortcut do: `@anAction'
 						-> '`@receiver bindKeyCombination: `@aShortcut toAction: `@anAction'.
 						
@@ -5667,7 +5667,7 @@ Morph >> showActions [
 				ifNotNil: ["want more than default behavior"
 					cls == Morph
 						ifFalse: [adder value: cls value: selector]]].
-	Smalltalk tools messageList browse: list title:  'Actions of ' , self printString
+	(Smalltalk tools toolNamed: #messageList) browse: list title:  'Actions of ' , self printString
 ]
 
 { #category : 'halos and balloon help' }

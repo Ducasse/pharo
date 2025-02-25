@@ -36,8 +36,7 @@ Class {
 		'classificationTable',
 		'comments',
 		'nextToken',
-		'state',
-		'alreadySeenHash'
+		'state'
 	],
 	#classVars : [
 		'CascadePatternCharacter',
@@ -161,8 +160,11 @@ OCScanner class >> patternVariableCharacter [
 OCScanner class >> scanTokenObjects: aStringOrStream [
 	"Return the tokens objects."
 
-	self deprecated: 'Use scanTokens:' on: '18/12/2024'  in: #pharo13  transformWith:  '`@receiver scanTokenObjects: `@arg '
-						-> '`@receiver scanTokens: `@arg '.
+	self deprecated: 'Use scanTokens:' 
+		on: '18/12/2024'  
+		in: 'pharo13'
+		transformWith:  '`@receiver scanTokenObjects: `@arg '
+			-> '`@receiver scanTokens: `@arg '.
 	^ self scanTokens: aStringOrStream
 ]
 
@@ -305,8 +307,7 @@ OCScanner >> on: aStream [
 	buffer := (String new: 60) writeStream.
 	stream := aStream.
 	classificationTable := self class classificationTable.
-	comments := OrderedCollection new.
-	alreadySeenHash := false
+	comments := OrderedCollection new
 ]
 
 { #category : 'private' }
@@ -434,12 +435,8 @@ OCScanner >> scanLiteral [
 	(currentCharacter = $( or: [ currentCharacter = $[ ])
 		ifTrue: [ ^ self scanLiteralArrayToken ].
 	"Accept multiple #."
-	(currentCharacter = $# and: [ alreadySeenHash ])
-		ifTrue: [ ^ self scanError: 'Multiple # sequence is forbidden' ].
 	currentCharacter = $#
-		ifTrue: [ 
-			alreadySeenHash := true.
-			^ self scanLiteral ].
+		ifTrue: [ ^ self scanLiteral ].
 	^ self scanError: 'Literal expected'
 ]
 

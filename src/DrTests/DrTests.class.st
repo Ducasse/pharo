@@ -68,7 +68,7 @@ DrTests class >> menuCommandOn: aBuilder [
 DrTests class >> open [
 	<script>
 
-	^ self new
+	^ (self newApplication: StPharoApplication current) 
 		  open;
 		  yourself
 ]
@@ -285,12 +285,6 @@ DrTests >> testsConfiguration: aDTTestsConfiguration [
 	self pluginPresenter itemsList selectItems: aDTTestsConfiguration items
 ]
 
-{ #category : 'accessing' }
-DrTests >> title [
-
-	^ 'Dr Tests - ' , currentPlugin pluginName
-]
-
 { #category : 'updating' }
 DrTests >> updateStatus: aString [
 	self statusLabel
@@ -316,4 +310,12 @@ DrTests >> updateWithResults: results [
 
 	pluginResult := results.
 	pluginPresenter updateWithResults: results
+]
+
+{ #category : 'accessing' }
+DrTests >> windowTitle [
+
+	^ self currentPlugin 
+		ifNotNil: [ :p | 'Dr Tests - ' , currentPlugin pluginName ]
+		ifNil: [ 'Dr Tests' ]
 ]
