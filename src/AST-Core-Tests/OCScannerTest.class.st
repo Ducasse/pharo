@@ -783,7 +783,6 @@ OCScannerTest >> testNextLiteralArrayWithParenthesisDoNotAllowMultipleTag [
 	| scanner token |
 	scanner := self buildScannerForText: '#########('.
 	token := scanner next.
-	"This is an error but I do not want to hard code the class of error"
 	self deny: token isLiteralToken.
 ]
 
