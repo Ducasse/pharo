@@ -423,6 +423,7 @@ OCScanner >> scanLiteral [
 	"Do not allow number literals after the #"
 
 	"This scan accepts keywords as well as binaries and Identifiers."
+
 	self step.
 	characterType = #alphabetic
 		ifTrue: [ ^ self scanSymbol ].
@@ -634,7 +635,7 @@ OCScanner >> scanToken [
 			ifFalse: [ self scanBinarySelector]].
 	characterType = #special ifTrue: [^self scanSpecialCharacter].
 	currentCharacter = $' ifTrue: [^self scanLiteralString].
-	currentCharacter = $# ifTrue: [^self scanLiteral].
+	currentCharacter = $# ifTrue: [ alreadySeenHash := true. ^self scanLiteral].
 	currentCharacter = $$ ifTrue: [^self scanLiteralCharacter].
 	currentCharacter = $" ifTrue: [^self scanComment]. "Assume a bad comment (as they are usually stripped)"
 	^self scanUnknownCharacter
