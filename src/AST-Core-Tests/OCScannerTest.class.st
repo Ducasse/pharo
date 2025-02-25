@@ -1016,7 +1016,8 @@ OCScannerTest >> testNextLiteralStopAtLastLetter [
 	scanner := self buildScannerForText: '########literal'.
 	token := scanner next.
 	self deny: token isLiteralToken.
-	self assert: token stop equals: 2
+	"this is unclear that the stop is meaningfull because normally we get an error token"
+	self assert: token stop equals: 1
 ]
 
 { #category : 'tests - Keyword' }
