@@ -778,7 +778,18 @@ OCScannerTest >> testNextLiteralArrayWithParenthesisDoNotAllowMultipleTag [
 	scanner := self buildScannerForText: '#########('.
 	token := scanner next.
 	"This is an error but I do not want to hard code the class of error"
-	self assert: token value equals: '##'
+	self deny: token isLiteralToken.
+]
+
+{ #category : 'tests - Hashes' }
+OCScannerTest >> testNextLiteralArrayWithParenthesisDoNotAllowMultipleTag2 [
+	"Note: the scanner only spots the beginning of the array."
+	
+	| scanner token |
+	scanner := self buildScannerForText: '##('.
+	token := scanner next.
+	"This is an error but I do not want to hard code the class of error"
+	self deny: token isLiteralToken.
 ]
 
 { #category : 'tests - SpecialCharacters' }
@@ -857,7 +868,7 @@ OCScannerTest >> testNextLiteralByteArrayWithBracketIsNotAllowedToHaveMultipleTa
 	scanner := self buildScannerForText: '####['.
 	token := scanner next.
 	"this is an error but I do not want to hardcode the class name!"
-	self assert: token value equals: '##'
+	self deny: token isLiteralToken.
 ]
 
 { #category : 'tests - Literal' }
