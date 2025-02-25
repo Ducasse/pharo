@@ -106,13 +106,25 @@ OCScannerTest >> testMultipleCommentTokensAreWellSeparated [
 ]
 
 { #category : 'tests - Hashes' }
+OCScannerTest >> testMultipleHashedInABlock [
+
+	| scanner token |
+	scanner := self buildScannerForText: ' [ ########literal ] '.
+	token := scanner next.
+	token := scanner next.
+	self assert: token class equals: OCErrorToken. 
+
+]
+
+{ #category : 'tests - Hashes' }
 OCScannerTest >> testMultipleNextLiteralStartAtFirstLetter [
 
 	| scanner token |
 	scanner := self buildScannerForText: '########literal'.
 	token := scanner next.
+	self assert: token class equals: OCErrorToken. 
 	self deny: token isLiteralToken.
-	self assert: token start equals: 1
+	
 ]
 
 { #category : 'tests - Literal' }
@@ -763,6 +775,8 @@ OCScannerTest >> testNextLiteralArrayWithBracketStartAtHashtag [
 	| scanner token |
 	scanner := self buildScannerForText: '#['.
 	token := scanner next.
+	self deny: token class equals: OCErrorToken. 
+
 	self assert: token start equals: 1
 ]
 
@@ -783,7 +797,8 @@ OCScannerTest >> testNextLiteralArrayWithParenthesisDoNotAllowMultipleTag [
 	| scanner token |
 	scanner := self buildScannerForText: '#########('.
 	token := scanner next.
-	self deny: token isLiteralToken.
+	self assert: token class equals: OCErrorToken. 
+
 ]
 
 { #category : 'tests - Hashes' }
@@ -793,8 +808,8 @@ OCScannerTest >> testNextLiteralArrayWithParenthesisDoNotAllowMultipleTag2 [
 	| scanner token |
 	scanner := self buildScannerForText: '##('.
 	token := scanner next.
-	"This is an error but I do not want to hard code the class of error"
-	self deny: token isLiteralToken.
+	self assert: token class equals: OCErrorToken. 
+
 ]
 
 { #category : 'tests - SpecialCharacters' }
@@ -872,8 +887,8 @@ OCScannerTest >> testNextLiteralByteArrayWithBracketIsNotAllowedToHaveMultipleTa
 	| scanner token |
 	scanner := self buildScannerForText: '####['.
 	token := scanner next.
-	"this is an error but I do not want to hardcode the class name!"
-	self deny: token isLiteralToken.
+	self assert: token class equals: OCErrorToken. 
+
 ]
 
 { #category : 'tests - Literal' }
