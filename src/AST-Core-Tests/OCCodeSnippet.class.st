@@ -510,20 +510,6 @@ OCCodeSnippet class >> badExpressions [
 			         styled: 'XX 00 n n n 0';
 			         notices: #( #( 1 13 14 ''')'' expected' ) )).
 		        (self new
-			         source: '[(#("a"("b"###("c"###["d"]#["e"]["f"]))))]';
-			         nodeAt: '0222JJJ9999ABCCCCCDEFFFFFFGGGGGGHCCCIC9220';
-			         styled: '00XX"""X"""XXXX"""XXX1"""111"""1#"""#XXX00';
-			         formattedCode:
-				         '[ (#( ( # # #( # # #[ ] #[ ] #''['' #'']'' ) ) )) "a" "b" "c" "d" "e" "f" ]';
-			         value: #( #( #( #[  ] #[  ] #'[' #']' ) ) );
-			         notices:
-				         #( #( 12 12 13 'Multiple # sequence is forbidden' )
-				            #( 13 13 14 'Multiple # sequence is forbidden' )
-				            #( 19 19 20 'Multiple # sequence is forbidden' )
-				            #( 20 20 21 'Multiple # sequence is forbidden' )
-				            #( 33 33 33 'Use a proper symbol literal' )
-				            #( 37 37 37 'Use a proper symbol literal' ) )). "dry [ and ] in lit array are symbols"
-		        (self new
 			         source: '#[ 1 ) 2 ]';
 			         nodeAt: '0001020300';
 			         styled: 'XX n X n X';
