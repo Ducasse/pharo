@@ -1507,25 +1507,27 @@ OCCodeSnippet class >> badScanner [
 				            #( 39 39 39 'Use a proper symbol literal' ) )). "Check if comments are lost"
 		        (self new
 			         source: '#(# ## #ab #10 #. 10)';
-			         nodeAt: '001022033304550670880';
+			         nodeAt: '001023044405660780990';
 			         styled: 'XXXXXXX### XXn XX nnX';
-			         formattedCode: '#( # ## #ab # 10 # #''.'' 10 )';
+			         formattedCode: '#( # # # #ab # 10 # #''.'' 10 )';
 			         isFaulty: true;
 			         notices:
 				         #( #( 3 3 4 'Literal expected' )
-				            #( 5 6 7 'Literal expected' )
+				            #( 5 5 6 'Multiple # sequence is forbidden' )
+				            #( 6 6 7 'Literal expected' )
 				            #( 12 12 13 'Literal expected' )
 				            #( 16 16 17 'Literal expected' )
 				            #( 17 17 17 'Use a proper symbol literal' ) )). "Lonely # are errors"
 		        (self new
 			         source: '#(#"A"##"B")';
-			         nodeAt: '003555446660';
+			         nodeAt: '003666457770';
 			         styled: 'XXXX""XXX""X';
-			         formattedCode: '#( # ## )';
+			         formattedCode: '#( # # # )';
 			         isFaulty: true;
 			         notices:
 				         #( #( 3 3 4 'Literal expected' )
-				            #( 7 8 9 'Literal expected' ) )). "Check if comments are lost"
+				            #( 7 7 8 'Multiple # sequence is forbidden' )
+				            #( 8 8 9 'Literal expected' ) )). "Check if comments are lost"
 		        (self new
 			         source: '#(:=aa:=:==bb:==#cc:==)';
 			         nodeAt: '00112223445666778888990';
