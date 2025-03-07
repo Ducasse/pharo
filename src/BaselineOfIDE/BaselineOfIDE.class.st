@@ -87,7 +87,7 @@ BaselineOfIDE >> baseline: spec [
 			baseline: 'EmergencyDebugger'
 			with: [ spec repository: repository ].
 
-		self load: 'Epicea' group: 'Browsers' spec: spec.
+	
 
 		spec baseline: 'Misc' with: [ spec repository: repository ].
 
@@ -129,6 +129,8 @@ BaselineOfIDE >> baseline: spec [
 		self microdown: spec.
 		self newTools: spec.
 		self drTests: spec.
+		
+		self load: 'Epicea' group: 'Browsers' spec: spec.
 		
 		"moving Quality assistant after spec. else we should split Dependency analysis"
 		spec baseline: 'QA' with: [ spec repository: repository ].
