@@ -7,7 +7,7 @@ I have the common UI definition of the dependency analyzer (left side panel, wit
 "
 Class {
 	#name : 'DAPackageTreePresenter',
-	#superclass : 'SpPresenter',
+	#superclass : 'StPresenter',
 	#instVars : [
 		'tree',
 		'buttonRefresh',

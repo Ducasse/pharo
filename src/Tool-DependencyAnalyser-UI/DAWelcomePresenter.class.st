@@ -5,7 +5,7 @@ self new openWithSpec
 "
 Class {
 	#name : 'DAWelcomePresenter',
-	#superclass : 'SpPresenter',
+	#superclass : 'StPresenter',
 	#instVars : [
 		'choosePresenter',
 		'browseDependenciesButton'

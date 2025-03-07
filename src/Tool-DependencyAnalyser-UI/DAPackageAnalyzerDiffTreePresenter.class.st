@@ -3,7 +3,7 @@ A PDPackageAnalyzerDiffTreeModel is to watch what are the difference between two
 "
 Class {
 	#name : 'DAPackageAnalyzerDiffTreePresenter',
-	#superclass : 'SpPresenter',
+	#superclass : 'StPresenter',
 	#instVars : [
 		'treeDiff',
 		'packageRelationGraphDiff'
