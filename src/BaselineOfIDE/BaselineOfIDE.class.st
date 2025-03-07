@@ -81,7 +81,7 @@ BaselineOfIDE >> baseline: spec [
 			baseline: 'ReflectionMirrors'
 			with: [ spec repository: repository ].
 		spec baseline: 'FuzzyMatcher' with: [ spec repository: repository ].
-		spec baseline: 'QA' with: [ spec repository: repository ].
+
 		spec baseline: 'OSWindow' with: [ spec repository: repository ].
 		spec
 			baseline: 'EmergencyDebugger'
@@ -130,6 +130,8 @@ BaselineOfIDE >> baseline: spec [
 		self newTools: spec.
 		self drTests: spec.
 		
+		"moving Quality assistant after spec. else we should split Dependency analysis"
+		spec baseline: 'QA' with: [ spec repository: repository ].
 		
 			"this is get the integration of dependencyAnalyser in Calypso."
 		self
