@@ -122,15 +122,24 @@ BaselineOfIDE >> baseline: spec [
 		spec
 			baseline: 'HeuristicCompletion'
 			with: [ spec repository: repository ].
-		self
-			load: 'DependencyAnalyzer'
-			group: 'Tool-DependencyAnalyser-UI-Tab'
-			spec: spec.
+
+	
 		self specCode: spec.
 		self roassal: spec.
 		self microdown: spec.
 		self newTools: spec.
 		self drTests: spec.
+		
+		
+			"this is get the integration of dependencyAnalyser in Calypso."
+		self
+			load: 'DependencyAnalyzer'
+			group: 'Tool-DependencyAnalyser-UI-Tab'
+			spec: spec.
+		
+		
+		
+		
 		spec package: #'BeautifulComments'  with: [ spec requires:  #( 'Microdown') ].
 		
 		spec package: 'IconPacks'.
