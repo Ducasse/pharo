@@ -127,6 +127,12 @@ MemoryLogger >> announcer [
 	^ announcer
 ]
 
+{ #category : 'accessing' }
+MemoryLogger >> hasRecordings [
+
+	^ recordings isNotEmpty 
+]
+
 { #category : 'initialization' }
 MemoryLogger >> initialize [
 	super initialize.
@@ -145,6 +151,12 @@ MemoryLogger >> nextPut: aSignal [
 	because it is not needed given that the only thing that can happen is
 	for a new announcement to be recorded"
 	self announcer announce: aSignal
+]
+
+{ #category : 'accessing' }
+MemoryLogger >> recordingCount [
+
+	^ recordings size
 ]
 
 { #category : 'accessing' }

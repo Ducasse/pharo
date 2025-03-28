@@ -7,6 +7,17 @@ Class {
 }
 
 { #category : 'testing' }
+MemoryLoggerTest >> testEmittingOutsideRunDuringWhenStoppedDoesNotLog [
+
+	| logger |
+	logger := MemoryLogger new.
+	logger stop.
+	logger runDuring: [ 'should be in the log' emit ].
+	'Should not be in the log' emit.
+	self assert: logger recordingCount equals: 1
+]
+
+{ #category : 'testing' }
 MemoryLoggerTest >> testRecordOneSignal [
 	| logger |
 	logger := MemoryLogger new runDuring: [ StringSignal emit: 'test' ].
@@ -33,4 +44,14 @@ MemoryLoggerTest >> testRunDuringStopsAtTheEnd [
 	logger runDuring: [
 		self assert: logger isRunning ].
 	self assert: logger isRunning not
+]
+
+{ #category : 'testing' }
+MemoryLoggerTest >> testWhenStoppedALoggerDoesNotLog [
+	| logger |
+	logger := MemoryLogger new.
+	self deny: logger hasRecordings.
+	logger stop. 
+	'Should not be in the log' emit.
+	self deny: logger hasRecordings
 ]
