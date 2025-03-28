@@ -7,6 +7,24 @@ Class {
 }
 
 { #category : 'testing' }
+MemoryLoggerTest >> testEmittingNonCoreSignalsAreLoggedToo [
+	| logger |
+	logger := MemoryLogger new.
+	logger start. 
+	DummySignal new emit.
+	self assert: logger entryCount equals: 1
+]
+
+{ #category : 'testing' }
+MemoryLoggerTest >> testEmittingNonCoreSignalsAreLoggedTooRunDuring [
+	| logger |
+	logger := MemoryLogger new.
+	logger runDuring: [ 
+		DummySignal new emit ].
+	self assert: logger entryCount equals: 1
+]
+
+{ #category : 'testing' }
 MemoryLoggerTest >> testEmittingOutsideRunDuringWhenStoppedDoesNotLog [
 
 	| logger |
@@ -15,6 +33,15 @@ MemoryLoggerTest >> testEmittingOutsideRunDuringWhenStoppedDoesNotLog [
 	logger runDuring: [ 'should be in the log' emit ].
 	'Should not be in the log' emit.
 	self assert: logger entryCount equals: 1
+]
+
+{ #category : 'testing' }
+MemoryLoggerTest >> testNewlyCreatedLoggerIsEmpty [
+
+	| logger |
+	logger := MemoryLogger new.
+	self deny: logger hasEntries.
+	
 ]
 
 { #category : 'testing' }

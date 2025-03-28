@@ -25,10 +25,10 @@ Class {
 	#name : 'CircularMemoryLogger',
 	#superclass : 'MemoryLogger',
 	#instVars : [
-		'index',
 		'fullBuffer',
 		'loopCount',
-		'maximumEntryCount'
+		'maximumEntryCount',
+		'lastEntryIndex'
 	],
 	#category : 'Beacon-Core-Loggers',
 	#package : 'Beacon-Core',
@@ -44,9 +44,9 @@ CircularMemoryLogger class >> fromSton: stonReader [
 		idx = 1 ifFalse: [ self error: 'Invalid STON' ].
 		logger
 			name: (each at: #name);
-			basicRecordings: (each at: #entries);
+			basicEntries: (each at: #entries);
 			basicEntryCount: (each at: #entryCount);
-			basicIndex: (each at: #index);
+			basicIndex: (each at: #lastEntryIndex);
 			basicFullBuffer: (each at: #fullBuffer);
 			basicLoopCount: (each at: #loopCount) ].
 
@@ -60,10 +60,18 @@ CircularMemoryLogger >> asStonDictionary [
 		  at: #name put: name;
 		  at: #entries put: entries;
 		  at: #maximumEntryCount put: maximumEntryCount;
-		  at: #index put: index;
+		  at: #index put: lastEntryIndex;
 		  at: #fullBuffer put: fullBuffer;
 		  at: #loopCount put: loopCount;
 		  yourself
+]
+
+{ #category : 'ston persistence' }
+CircularMemoryLogger >> basicEntries: aCollection [
+	"Set the receiver's recordings.
+	This is normally only used when loading saved instances from file"
+
+	entries := aCollection
 ]
 
 { #category : 'ston persistence' }
@@ -87,7 +95,7 @@ CircularMemoryLogger >> basicIndex: anInteger [
 	"Set the receiver's index.
 	This is normally only used when loading saved instances from file"
 
-	index := anInteger
+	lastEntryIndex := anInteger
 ]
 
 { #category : 'ston persistence' }
@@ -115,7 +123,18 @@ CircularMemoryLogger >> basicReset [
 	entries := Array new: maximumEntryCount.
 	fullBuffer := false.
 	loopCount := 0.
-	index := 0
+	lastEntryIndex := 0
+]
+
+{ #category : 'accessing' }
+CircularMemoryLogger >> entries [
+	"It answers a copy of the recorded collection to not grant
+	access to the users to a shared resource that should only be
+	modified via the mutex"
+
+	^ fullBuffer
+		  ifTrue: [ entries sorted: [ :a :b | a timestamp < b timestamp ] ]
+		  ifFalse: [ entries first: lastEntryIndex ]
 ]
 
 { #category : 'initialization' }
@@ -130,7 +149,7 @@ CircularMemoryLogger >> entryCount: anInteger [
 CircularMemoryLogger >> initialize [
 
 	maximumEntryCount := 5000.
-	index := 0.
+	lastEntryIndex := 0.
 	super initialize
 ]
 
@@ -138,31 +157,19 @@ CircularMemoryLogger >> initialize [
 CircularMemoryLogger >> nextPut: aSignal [
 
 	mutex critical: [
-		index := index >= maximumEntryCount
+		lastEntryIndex := lastEntryIndex >= maximumEntryCount
 			         ifTrue: [
 				         fullBuffer := true.
 				         loopCount := loopCount + 1.
 				         1 ]
-			         ifFalse: [ index + 1 ].
-		entries at: index put: aSignal ].
+			         ifFalse: [ lastEntryIndex + 1 ].
+		entries at: lastEntryIndex put: aSignal ].
 
 	"The announcement is passed forward so that potential viewers
 	can refresh when something changes. we do not create another announcement
 	because it is not needed given that the only thing that can happen is
 	for a new announcement to be recorded"
 	self announcer announce: aSignal
-]
-
-{ #category : 'accessing' }
-CircularMemoryLogger >> recordings [
-	"It answers a copy of the recorded collection to not grant
-	access to the users to a shared resource that should only be
-	modified via the mutex"
-
-	^ fullBuffer
-		  ifTrue: [
-		  entries sorted: [ :a :b | a timestamp < b timestamp ] ]
-		  ifFalse: [ entries first: index ]
 ]
 
 { #category : 'initialization' }
