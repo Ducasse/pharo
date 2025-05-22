@@ -19,7 +19,6 @@ CoTypedReceiverMessageHeuristic >> appliesForNode: aNode inContext: aContext [
 CoTypedReceiverMessageHeuristic >> buildFetcherFor: aMessageNode inContext: aContext [
 
 	^ self
-		  newMessageInHierarchyFetcherForClass:
-		  (aMessageNode receiver propertyAt: #type)
+		  newMessageInHierarchyFetcherForClass: (aMessageNode receiver propertyAt: #type)
 		  inASTNode: aMessageNode
 ]
