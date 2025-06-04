@@ -27,6 +27,12 @@ ReUpFrontPreconditionCheckingCompositeRefactoring >> breakingChangePreconditions
 ]
 
 { #category : 'accessing' }
+ReUpFrontPreconditionCheckingCompositeRefactoring >> nonViolators [ 
+
+	^ self breakingChangePreconditions flatCollect: [ :cond | cond nonViolators ]
+]
+
+{ #category : 'accessing' }
 ReUpFrontPreconditionCheckingCompositeRefactoring >> privateTransform [
 	"pay attention we are not checking preconditions of children at this level"
 	

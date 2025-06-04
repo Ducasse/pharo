@@ -42,6 +42,11 @@ ReInstanceVariableHasReferences >> initialize [
 ]
 
 { #category : 'accessing' }
+ReInstanceVariableHasReferences >> nonViolators [
+	self shouldBeImplemented.
+]
+
+{ #category : 'accessing' }
 ReInstanceVariableHasReferences >> violators [ 
 	^ violators
 ]
