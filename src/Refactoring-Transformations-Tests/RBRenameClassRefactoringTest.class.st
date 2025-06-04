@@ -36,21 +36,25 @@ RBRenameClassRefactoringTest >> testModelRenameSequenceClass [
 	model defineClass: [ :aBuilder |
 		aBuilder
 			superclass: Object;
-			name: #Foo1;
+			name: #ClassThatWillBeRenamed;
 			package: #'Refactory-Test data' ].
-	(model classNamed: #Foo1)
-		compile: 'foo	 ^ Foo1' classified: #( accessing );
-		compile: 'objectName ^ #(Foo1)' classified: #( accessing ).
+	(model classNamed: #ClassThatWillBeRenamed)
+		compile: 'foo	 ^ ClassThatWillBeRenamed' classified: #( accessing );
+		compile: 'objectName ^ #(ClassThatWillBeRenamed)' classified: #( accessing ).
 
 
-	(ReRenameClassRefactoring model: model rename: #Foo1 to: #Foo2) generateChanges.
-	(ReRenameClassRefactoring model: model rename: #Foo2 to: #Foo3) generateChanges.
+	(ReRenameClassRefactoring model: model rename: #ClassThatWillBeRenamed to: #NewClassName) generateChanges.
+	(ReRenameClassRefactoring model: model rename: #NewClassName to: #FinalClassName) generateChanges.
 
-	self deny: (model includesClassNamed: #Foo1).
-	self deny: (model includesClassNamed: #Foo2).
-	self assert: (model includesClassNamed: #Foo3).
-	self assert: ((model classNamed: #Foo3) parseTreeForSelector: #foo) equals: (self parseMethod: 'foo ^ Foo3').
-	self assert: ((model classNamed: #Foo3) parseTreeForSelector: #objectName) equals: (self parseMethod: 'objectName ^ #(Foo3)')
+	self deny: (model includesClassNamed: #ClassThatWillBeRenamed).
+	self deny: (model includesClassNamed: #NewClassName).
+	self assert: (model includesClassNamed: #FinalClassName).
+	self 
+		assert: ((model classNamed: #FinalClassName) parseTreeForSelector: #foo) 
+		equals: (self parseMethod: 'foo ^ FinalClassName').
+	self 
+		assert: ((model classNamed: #FinalClassName) parseTreeForSelector: #objectName) 
+		equals: (self parseMethod: 'objectName ^ #(FinalClassName)')
 ]
 
 { #category : 'tests' }
