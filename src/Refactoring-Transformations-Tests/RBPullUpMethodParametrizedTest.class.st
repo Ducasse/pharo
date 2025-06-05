@@ -10,7 +10,7 @@ Class {
 RBPullUpMethodParametrizedTest class >> testParameters [
 	^ ParametrizedTestMatrix new
 		addCase: { #rbClass -> RePullUpMethodRefactoring };
-		addCase: { #rbClass -> RBPullUpMethodTransformation };
+		addCase: { #rbClass -> RePullUpMethodTransformation };
 		yourself
 ]
 
