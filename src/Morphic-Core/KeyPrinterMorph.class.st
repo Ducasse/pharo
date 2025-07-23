@@ -10,9 +10,9 @@ your keyboard to display the key code.
 Class {
 	#name : 'KeyPrinterMorph',
 	#superclass : 'Morph',
-	#category : 'Tools-Debugger',
-	#package : 'Tools',
-	#tag : 'Debugger'
+	#category : 'Morphic-Core-Support',
+	#package : 'Morphic-Core',
+	#tag : 'Support'
 }
 
 { #category : 'open/close' }
