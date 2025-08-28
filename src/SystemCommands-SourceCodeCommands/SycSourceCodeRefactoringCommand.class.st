@@ -27,6 +27,7 @@ SycSourceCodeRefactoringCommand >> execute [
 { #category : 'private' }
 SycSourceCodeRefactoringCommand >> executeRefactoring: refactoring [
 
+	self halt.
 	self initializeDefaultOptionsOf: refactoring.
 	[ refactoring execute ]
 		on: RBRefactoringError

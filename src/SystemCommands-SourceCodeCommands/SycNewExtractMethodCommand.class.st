@@ -158,6 +158,7 @@ SycNewExtractMethodCommand >> setUpOptionToOverrideExistingMethodDuring: aRefact
 { #category : 'execution' }
 SycNewExtractMethodCommand >> setUpOptionsOf: refactoring [
 
+	self halt.
 	self initializeDefaultOptionsOf: refactoring.
 	self setUpOptionToChangeExtractionClass: refactoring.
 

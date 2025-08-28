@@ -34,7 +34,7 @@ StRefactoringAddClassPresenter >> defaultLayout [
 		  add: textInput atPoint: 2 @ 1 span: 2 @ 1;
 		  add: 'Package' atPoint: 1 @ 2;
 		  add: packagePresenter atPoint: 2 @ 2 span: 2 @ 1;
-		  add: 'Tag' at: 1 @ 3;
+		  add: 'Tag' atPoint: 1 @ 3;
 		  add: tagPresenter at: 2 @ 3 span: 2 @ 1;
 		  add: 'Comment' at: 1 @ 4;
 		  add: (SpBoxLayout newTopToBottom

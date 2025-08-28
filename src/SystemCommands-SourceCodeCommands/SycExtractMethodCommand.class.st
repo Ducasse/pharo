@@ -106,7 +106,8 @@ SycExtractMethodCommand >> setUpOptionToOverrideExistingMethodDuring: aRefactori
 { #category : 'execution' }
 SycExtractMethodCommand >> setUpOptionsOf: refactoring [
 
-	self initializeDefaultOptionsOf: refactoring.
+	self halt.
+	"self initializeDefaultOptionsOf: refactoring."
 	self setUpOptionToChangeExtractionClass: refactoring.
 
 	self setUpOptionToOverrideExistingMethodDuring: refactoring.

@@ -37,6 +37,7 @@ NautilusRefactoring >> chooseFrom: anArray title: aString lines: aCollection [
 { #category : 'display' }
 NautilusRefactoring >> handleMethodNameRequest: aMethodName [
 	|dialog|
+	self halt.
 	dialog := StMethodNameEditorPresenter
 		openOn: aMethodName
 		canRenameArgs: false
@@ -115,6 +116,7 @@ NautilusRefactoring >> requestImplementorToInline: imps [
 NautilusRefactoring >> requestMethodNameFor: aMethodName [
 	
 	|dialog|
+	self halt.
 	dialog := StMethodNameEditorPresenter
 		openOn: aMethodName
 		canRenameArgs: false
@@ -179,16 +181,4 @@ NautilusRefactoring >> shouldNotCreateExtraBindings: aString [
 { #category : 'option' }
 NautilusRefactoring >> shouldOverride: aSelector in: aClass [
 	^ self confirm: ('<1s> is already defined in the <2p> hierarchy. Extracting it to an existing selector may change behavior. Do you wish to use <1s> anyway?' expandMacrosWith: aSelector with: aClass)
-]
-
-{ #category : 'option' }
-NautilusRefactoring >> shouldSearchInHierarchy: class [
-
-	^ class subclasses
-		  ifNotEmpty: [
-			  self morphicUIManager
-				  confirm:
-				  'Do you want to search occurrences in the whole hierarchy?'
-				  label: 'Warning' ]
-		  ifEmpty: [ false ]
 ]
