@@ -108,6 +108,7 @@ NECEntry >> label [
 
 { #category : 'printing' }
 NECEntry >> printOn: aStream [
+
 	aStream
 		nextPutAll: self class name;
 		nextPut: $(;
@@ -116,5 +117,8 @@ NECEntry >> printOn: aStream [
 
 	self hightlightSymbol ifNotNil: [ aStream nextPutAll: self hightlightSymbol ].
 
-	aStream nextPut: $)
+	fetcher ifNotNil: [ :f | aStream nextPutAll: ' from ', fetcher class name , ' '].
+
+	aStream nextPut: $).
+	
 ]
