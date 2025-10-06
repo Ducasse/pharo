@@ -34,5 +34,5 @@ CoRepositoryPackageScopedGlobalVariableFetcher >> entriesDo: aBlock [
 	
 	friendClassNames do: [ :friend | 
 		(filter accepts: friend) 
-			ifTrue: [ aBlock value: (NECGlobalEntry contents: friend node: nil) ]].
+			ifTrue: [ aBlock value: ((NECGlobalEntry contents: friend node: nil)  fetcher: self ; yourself)]].
 ]
