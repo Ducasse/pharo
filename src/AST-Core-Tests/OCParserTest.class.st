@@ -1846,6 +1846,17 @@ OCParserTest >> testReplacingNodes [
 ]
 
 { #category : 'tests' }
+OCParserTest >> testReturnShouldBeTheLastStatement [
+	
+	self 
+		should: [ self parserClass parseMethod:
+			'tmp ^ 42. 33 + 33' ] 
+		raise: Error.
+
+			
+]
+
+{ #category : 'tests' }
 OCParserTest >> testScopesEnclosingMatchingLiterals [
 	| tree |
 
