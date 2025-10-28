@@ -1052,7 +1052,8 @@ OCParser >> parseStatementInto: statementList periodList: periods withAcceptedSt
 	"If the previous node in the statement list is a return node, mark this node as unreachable"
 
 	(statementList notEmpty and: [ statementList last isReturn ]) ifTrue: [
-		self error: 'After the return statement, there is an unreachable statement in this method source: ', source ].
+		(node class = OCCommentNode)
+			ifFalse: [ self error: 'After the return statement, there is an unreachable statement in this method source: ', source ]].
 
 	"Commit the statement to the statements list"
 	statementList add: node
