@@ -118,3 +118,9 @@ NECEntry >> printOn: aStream [
 
 	aStream nextPut: $)
 ]
+
+{ #category : 'private' }
+NECEntry >> toolNamed: aSymbol [
+
+^ Smalltalk tools toolNamed: aSymbol 
+]

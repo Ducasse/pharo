@@ -11,10 +11,10 @@ Class {
 
 { #category : 'ui related' }
 NECVariableEntry >> browse [
+
 	| class |
 	class := Smalltalk globals at: contents ifAbsent: [ nil ].
-	class
-		ifNotNil: [ (Smalltalk tools toolNamed: #browser) openOnClass: class].
+	class ifNotNil: [ (self toolNamed: #browser) openOnClass: class ].
 	^ true
 ]
 

@@ -11,20 +11,20 @@ Class {
 
 { #category : 'private' }
 NECSymbolEntry >> browse [
+
 	| class |
 	class := node propertyAt: #type ifAbsent: nil.
-	class ifNil: [ SystemNavigation new browseAllImplementorsOf: self selector. ^true].
+	class ifNil: [
+			SystemNavigation new browseAllImplementorsOf: self selector.
+			^ true ].
 
 	^ self
-		findMethodAndDo: [ :method |
-			(Smalltalk tools toolNamed: #browser)
-				openOnClass: method methodClass
-				selector: method selector.
-			true ]
-		ifAbsent: [ :selector |
-			SystemNavigation new
-				browseAllImplementorsOf: selector.
-			true ]
+		  findMethodAndDo: [ :method |
+				  (self toolNamed: #browser) openOnClass: method methodClass selector: method selector.
+				  true ]
+		  ifAbsent: [ :selector |
+				  SystemNavigation new browseAllImplementorsOf: selector.
+				  true ]
 ]
 
 { #category : 'detail information' }
@@ -77,11 +77,11 @@ NECSymbolEntry >> implementorsDescription: aSymbol [
 { #category : 'private' }
 NECSymbolEntry >> methodSourceDescription: aClass method: aCompiledMethod [
 	"I return if it's a class or a method, its class name, and the implementation."
-	| styler styledText |
 
+	| styler styledText |
 	styler := SHRBTextStyler new.
 	styler classOrMetaClass: aClass.
-	styledText := styler styledTextFor: (aCompiledMethod sourceCode) asText.
+	styledText := styler styledTextFor: aCompiledMethod sourceCode asText.
 
 	^ NECEntryDescription
 		label: self label
