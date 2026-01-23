@@ -546,6 +546,10 @@ DebugSession >> terminate [
 	
 	"Assume the user closed the debugger. 
 	Simply kill the interrupted process."
+	
+	(exception isKindOf: MessageNotUnderstood)
+		ifTrue: [ exception stopResendingMessage ].
+	
 	self interruptedProcess terminate.
 	self clear.
 	Smalltalk installLowSpaceWatcher "restart low space handler"
