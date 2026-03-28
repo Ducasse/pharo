@@ -39,6 +39,7 @@ YearTest >> testOffset [
 
 { #category : 'tests' }
 YearTest >> testPreviousInLeapYear [
+
 	| leap |
 	leap := Year year: 2008.
 	self assert: leap isLeapYear.

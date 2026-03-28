@@ -616,10 +616,12 @@ DateAndTime >> + operand [
 { #category : 'arithmetic' }
 DateAndTime >> - operand [
 	"operand conforms to protocol DateAndTime or protocol Duration"
-
+	
+	operand class = String ifTrue: [ self halt ].
 	^ (operand respondsTo: #asDateAndTime)
 		ifTrue: [
 			| other |
+			self halt.
 			other := operand asDateAndTime.
 			Duration
 				seconds: (SecondsInDay * (julianDayNumber - other julianDayNumberUTC))
