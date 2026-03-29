@@ -621,7 +621,6 @@ DateAndTime >> - operand [
 	^ (operand respondsTo: #asDateAndTime)
 		ifTrue: [
 			| other |
-			self halt.
 			other := operand asDateAndTime.
 			Duration
 				seconds: (SecondsInDay * (julianDayNumber - other julianDayNumberUTC))
@@ -1047,9 +1046,10 @@ DateAndTime >> offset: anOffset [
 	being offset from UTC by offset.
 	Unlike #translateTo: this will NOT change the absolute in UTC "
 
+	anOffset class = String ifTrue: [ self halt ].
 	^ self class basicNew
-		ticks: self ticks offset: anOffset asDuration;
-		yourself
+		  ticks: self ticks offset: (anOffset asDuration);
+		  yourself
 ]
 
 { #category : 'accessing' }
