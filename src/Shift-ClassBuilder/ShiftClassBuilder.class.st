@@ -630,6 +630,7 @@ ShiftClassBuilder >> superclassName [
 { #category : 'accessing' }
 ShiftClassBuilder >> superclassName: anObject [
 
+	superclass := nil. "In the case we update a class and use #superclassName:, we should flush the superclass saved."
 	superclassName := anObject ifNotNil: [ anObject asSymbol ]
 ]
 

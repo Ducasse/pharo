@@ -356,6 +356,22 @@ ShiftClassBuilderTest >> testExistingClassWithClassSlotThenWeRemoveIt [
 	self assert: newClass class slots equals: #(  )
 ]
 
+{ #category : 'tests - class creation' }
+ShiftClassBuilderTest >> testExistingClassWithSuperclassName [
+	"Regression test for https://github.com/pharo-project/pharo/issues/19572"
+
+	| class |
+	class := self class classInstaller make: [ :b |
+			         b
+				         name: 'Toto';
+				         superclassName: 'Object';
+				         package: self packageNameForTest ].
+
+	class := self class classInstaller update: class to: [ :b | b superclassName: 'TestCase' ].
+
+	self assert: class superclass name equals: 'TestCase'
+]
+
 { #category : 'tests - classBuilder generation' }
 ShiftClassBuilderTest >> testFillShiftClassBuilder [
 
