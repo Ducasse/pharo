@@ -108,6 +108,12 @@ MCDefinition >> load [
 	self loadWithLoader: MCPackageLoader new.
 ]
 
+{ #category : 'loading' }
+MCDefinition >> loadWithLoader: aLoader [
+
+	self subclassResponsibility
+]
+
 { #category : 'installing' }
 MCDefinition >> postload [
 ]
