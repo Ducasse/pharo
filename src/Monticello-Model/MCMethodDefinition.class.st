@@ -174,6 +174,17 @@ MCMethodDefinition >> hash [
 	^ hash
 ]
 
+{ #category : 'testing' }
+MCMethodDefinition >> isAlreadyDefined [
+	"Return true is a method with the same selector is alreaydy defined in the class"
+	
+	self actualClass 
+		ifNil: [ ^ false ]
+		ifNotNil: [ :cls | 
+				cls compiledMethodAt: selector ifAbsent: [ ^ false ]. 
+				^ true ]
+]
+
 { #category : 'installing' }
 MCMethodDefinition >> isExtensionMethod [
 	^ category beginsWith: '*'

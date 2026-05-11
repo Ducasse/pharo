@@ -103,6 +103,11 @@ MCDefinition >> isTraitDefinition [
 	^ false
 ]
 
+{ #category : 'loading' }
+MCDefinition >> load [
+	self loadWithLoader: MCPackageLoader new.
+]
+
 { #category : 'installing' }
 MCDefinition >> postload [
 ]
