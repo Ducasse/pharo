@@ -299,10 +299,11 @@ OCIRInstruction deprecatedAliases: { #IRInstruction }.
 OCASTCache deprecatedAliases: { #ASTCache }.
 
 OCIRPrinterVisitor deprecatedAliases: { #IRPrinter }.
-OCIRTranslator deprecatedAliases: { #IRTranslator }.
+OCIRTranslatorVisitor deprecatedAliases: { #IRTranslator }.
 OCIRVisitor deprecatedAliases: { #IRVisitor }.
 OCIRBuilderTest deprecatedAliases: { #IRBuilderTest}.
 OCIRBytecodeGenerator deprecatedAliases: { #IRBytecodeGenerator}.
+OCIRBuilder deprecatedAliases: { #IRBuilder}.
 
 	 CompletionSorter register.
 	 RubSmalltalkEditor completionEngineClass: CompletionEngine.
