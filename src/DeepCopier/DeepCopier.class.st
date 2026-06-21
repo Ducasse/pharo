@@ -38,6 +38,30 @@ Class {
 	#package : 'DeepCopier'
 }
 
+{ #category : 'accessing' }
+DeepCopier >> at: akey ifAbsent: aBlock [
+
+	^ references at: akey ifAbsent: aBlock
+]
+
+{ #category : 'accessing' }
+DeepCopier >> at: akey ifAbsentPut: aBlock [
+
+	^ references at: akey ifAbsentPut: aBlock
+]
+
+{ #category : 'accessing' }
+DeepCopier >> at: akey ifPresent: aBlock [
+
+	^ references at: akey ifPresent: aBlock
+]
+
+{ #category : 'accessing' }
+DeepCopier >> at: akey put: aValue [
+
+	references at: akey put: aValue
+]
+
 { #category : 'checking' }
 DeepCopier >> basicCheckClass: aClass [
 	"Every class that implements veryDeepInner: or veryDeepCopyWith: must copy all its inst vars.

@@ -13,18 +13,23 @@ Object >> veryDeepCopyWith: deepCopier [
 
 	| class selfNumberOfInstanceVariables fieldOfSelf copyOfSelf currentClass hasVeryDeepInnerMethod currentNumberOfInstanceVariables |
 
-	deepCopier references at: self ifPresent: [ :newer | 	"already copied" ^ newer].
+	"already copied" 
+	deepCopier at: self ifPresent: [ :newer | 	^ newer].
+	
 	class := self class.
-	class isMeta ifTrue: [ "a metaclass" ^ self ].
+	
+	"Do not copy a metaclase"
+	class isMeta ifTrue: [ ^ self ].
+	
 	copyOfSelf := self shallowCopy.
-	deepCopier references at: self put: copyOfSelf.	"remember"
+	deepCopier at: self put: copyOfSelf.
 
 	(class isVariable and: [class isPointers]) ifTrue: [
 		self basicSize to: 1 by: -1 do: [ :i |
 			fieldOfSelf := self basicAt: i.
 			copyOfSelf
 				basicAt: i
-				put: (deepCopier references
+				put: (deepCopier
 					at: fieldOfSelf
 					ifAbsent: [ fieldOfSelf veryDeepCopyWith: deepCopier ])]].
 
@@ -46,7 +51,7 @@ Object >> veryDeepCopyWith: deepCopier [
 					fieldOfSelf := self instVarAt: selfNumberOfInstanceVariables.
 					copyOfSelf
 						instVarAt: selfNumberOfInstanceVariables
-						put: (deepCopier references
+						put: (deepCopier
 							at: fieldOfSelf
 							ifAbsent: [ fieldOfSelf veryDeepCopyWith: deepCopier ]).
 					selfNumberOfInstanceVariables := selfNumberOfInstanceVariables - 1 ]].
