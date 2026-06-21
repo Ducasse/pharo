@@ -594,7 +594,7 @@ It doesn't handle cycles, #veryDeepCopy does. In the future we will make it hand
 
 	| newObject class index |
 	class := self class.
-	(class == Object) ifTrue: [^self].
+	class == Object ifTrue: [^self].
 	class isVariable
 		ifTrue:
 			[index := self basicSize.

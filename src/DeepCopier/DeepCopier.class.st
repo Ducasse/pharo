@@ -88,7 +88,7 @@ DeepCopier >> checkClass: aClass [
 				signal ]
 ]
 
-{ #category : 'like fullCopy' }
+{ #category : 'checking' }
 DeepCopier >> checkDeep [
 	"Write exceptions in the Transcript.  Every class that implements veryDeepInner: must copy all its inst vars.  Danger is that a user will add a new instance variable and forget to copy it.  This check is only run by hand once in a while to make sure nothing was forgotten.
 (Please do not remove this method.)
@@ -112,6 +112,17 @@ DeepCopier >> checkDeep [
 												(aClass allInstVarNames at: index) printOn: stream ] ] ] ] ])
 ]
 
+{ #category : 'copy' }
+DeepCopier >> copyObject: anObject [ 
+
+	| new | 
+	new := anObject veryDeepCopyWith: self.
+	references associationsDo: [ :assoc |
+		assoc value veryDeepFixupWith: self ].
+	self  fixDependents.
+	^ new
+]
+
 { #category : 'checking' }
 DeepCopier >> doesMethod: aSelector writeAllInstanceVariablesOfClass: aClass [
 
@@ -126,7 +137,7 @@ DeepCopier >> doesMethod: aSelector writeAllInstanceVariablesOfClass: aClass [
 	^ hasNoInstanceVariables or: [ method writesField: lastFieldIndex ]
 ]
 
-{ #category : 'like fullCopy' }
+{ #category : 'copy' }
 DeepCopier >> fixDependents [
 	"They are not used much, but need to be right"
 
@@ -156,7 +167,7 @@ DeepCopier >> raiseWarningsIfAny: warnings [
 			signal ]
 ]
 
-{ #category : 'like fullCopy' }
+{ #category : 'accessing' }
 DeepCopier >> references [
 	^ references
 ]
