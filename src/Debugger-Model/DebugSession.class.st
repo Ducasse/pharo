@@ -747,3 +747,11 @@ DebugSession >> wantsToBrowseAndRecompile: anObject [
 
 	wantsToBrowseAndRecompile := anObject
 ]
+
+{ #category : 'callbacks' }
+DebugSession >> wantsToBrowseAndRecompileMethodNotFoundInStack: message [
+	"call back method to avoid dependencies in debugger-model"
+	"by default it returns false the modified code is not recompiled"
+	
+	^ wantsToBrowseAndRecompile 
+]
