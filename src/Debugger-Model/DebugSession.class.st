@@ -28,7 +28,8 @@ Class {
 		'interruptedProcess',
 		'exception',
 		'stepThroughController',
-		'debugCallBack'
+		'debugCallBack',
+		'wantsToBrowseAndRecompile'
 	],
 	#classVars : [
 		'FastStepThroughMode',
@@ -231,7 +232,7 @@ DebugSession >> informCannotRewindStack [
 DebugSession >> initialize [
 
 	super initialize.
-
+	wantsToBrowseAndRecompile := false.
 	debugCallBack := self
 ]
 
@@ -732,5 +733,17 @@ DebugSession >> wantsToBroweAndRecompileMethodNotFoundInStack: message [
 	"call back method to avoid dependencies in debugger-model"
 	"by default it returns false the modified code is not recompiled"
 	
-	^ false
+	^ wantsToBrowseAndRecompile 
+]
+
+{ #category : 'accessing' }
+DebugSession >> wantsToBrowseAndRecompile [
+
+	^ wantsToBrowseAndRecompile
+]
+
+{ #category : 'accessing' }
+DebugSession >> wantsToBrowseAndRecompile: anObject [
+
+	wantsToBrowseAndRecompile := anObject
 ]
