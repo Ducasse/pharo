@@ -13,3 +13,39 @@ Class {
 	#package : 'System-Model-Tests',
 	#tag : 'Core'
 }
+
+{ #category : 'accessing' }
+DCOrderedItem >> product [
+
+	^ product
+]
+
+{ #category : 'accessing' }
+DCOrderedItem >> product: anObject [
+
+	product := anObject
+]
+
+{ #category : 'accessing' }
+DCOrderedItem >> quantity [
+
+	^ quantity
+]
+
+{ #category : 'accessing' }
+DCOrderedItem >> quantity: anObject [
+
+	quantity := anObject
+]
+
+{ #category : 'accessing' }
+DCOrderedItem >> quote [
+
+	^ quote
+]
+
+{ #category : 'accessing' }
+DCOrderedItem >> quote: anObject [
+
+	quote := anObject
+]

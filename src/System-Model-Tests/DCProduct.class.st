@@ -12,3 +12,27 @@ Class {
 	#package : 'System-Model-Tests',
 	#tag : 'Core'
 }
+
+{ #category : 'accessing' }
+DCProduct >> name [
+
+	^ name
+]
+
+{ #category : 'accessing' }
+DCProduct >> name: anObject [
+
+	name := anObject
+]
+
+{ #category : 'accessing' }
+DCProduct >> unitPrice [
+
+	^ unitPrice
+]
+
+{ #category : 'accessing' }
+DCProduct >> unitPrice: anObject [
+
+	unitPrice := anObject
+]

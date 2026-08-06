@@ -11,3 +11,15 @@ Class {
 	#package : 'System-Model-Tests',
 	#tag : 'Core'
 }
+
+{ #category : 'accessing' }
+DCSalesPerson >> name [
+
+	^ name
+]
+
+{ #category : 'accessing' }
+DCSalesPerson >> name: anObject [
+
+	name := anObject
+]

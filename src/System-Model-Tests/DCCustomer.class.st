@@ -12,3 +12,33 @@ Class {
 	#package : 'System-Model-Tests',
 	#tag : 'Core'
 }
+
+{ #category : 'initialization' }
+DCCustomer >> initialize [ 
+	super initialize.
+	invoices := OrderedCollection new
+]
+
+{ #category : 'accessing' }
+DCCustomer >> invoices [
+
+	^ invoices
+]
+
+{ #category : 'accessing' }
+DCCustomer >> invoices: anObject [
+
+	invoices := anObject
+]
+
+{ #category : 'accessing' }
+DCCustomer >> name [
+
+	^ name
+]
+
+{ #category : 'accessing' }
+DCCustomer >> name: anObject [
+
+	name := anObject
+]

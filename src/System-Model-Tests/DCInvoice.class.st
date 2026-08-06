@@ -13,3 +13,39 @@ Class {
 	#package : 'System-Model-Tests',
 	#tag : 'Core'
 }
+
+{ #category : 'accessing' }
+DCInvoice >> customer [
+
+	^ customer
+]
+
+{ #category : 'accessing' }
+DCInvoice >> customer: anObject [
+
+	customer := anObject
+]
+
+{ #category : 'accessing' }
+DCInvoice >> orderedItems [
+
+	^ orderedItems
+]
+
+{ #category : 'accessing' }
+DCInvoice >> orderedItems: anObject [
+
+	orderedItems := anObject
+]
+
+{ #category : 'accessing' }
+DCInvoice >> salesPerson [
+
+	^ salesPerson
+]
+
+{ #category : 'accessing' }
+DCInvoice >> salesPerson: anObject [
+
+	salesPerson := anObject
+]
