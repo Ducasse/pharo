@@ -4,8 +4,8 @@ Class {
 	#instVars : [
 		'systemVersion'
 	],
-	#category : 'Clap-Tests-Commands',
-	#package : 'Clap-Tests',
+	#category : 'System-Version-Tests-Commands',
+	#package : 'System-Version-Tests',
 	#tag : 'Commands'
 }
 

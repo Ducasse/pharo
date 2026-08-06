@@ -1,8 +1,8 @@
 Class {
 	#name : 'HermesClapCommandTest',
 	#superclass : 'ClapPharoCommandsTest',
-	#category : 'Clap-Tests-Commands',
-	#package : 'Clap-Tests',
+	#category : 'Hermes-Extensions-Tests-Commands',
+	#package : 'Hermes-Extensions-Tests',
 	#tag : 'Commands'
 }
 

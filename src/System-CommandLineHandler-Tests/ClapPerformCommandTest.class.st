@@ -4,9 +4,9 @@ Class {
 	#instVars : [
 		'command'
 	],
-	#category : 'Clap-Tests-Commands',
-	#package : 'Clap-Tests',
-	#tag : 'Commands'
+	#category : 'System-CommandLineHandler-Tests-Base',
+	#package : 'System-CommandLineHandler-Tests',
+	#tag : 'Base'
 }
 
 { #category : 'tests' }

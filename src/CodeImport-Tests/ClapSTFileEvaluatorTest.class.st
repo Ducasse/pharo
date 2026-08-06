@@ -1,8 +1,8 @@
 Class {
 	#name : 'ClapSTFileEvaluatorTest',
 	#superclass : 'ClapPharoCommandsTest',
-	#category : 'Clap-Tests-Commands',
-	#package : 'Clap-Tests',
+	#category : 'CodeImport-Tests-Commands',
+	#package : 'CodeImport-Tests',
 	#tag : 'Commands'
 }
 

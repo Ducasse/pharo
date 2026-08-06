@@ -188,6 +188,11 @@ ShiftClassInstaller >> make [
 
 		builder builderEnhancer propagateChangesToRelatedClasses: newClass builder: builder.
 		
+		"In the case we update the trait composition of the class, we might have to remove empty protocols. We do that after rebuilding the dictionaries so that all selectors are present."
+
+		newClass removeEmptyProtocols.
+		newClass class removeEmptyProtocols.
+		
 	] on: ShNoChangesInClass do:[
 		"If there are no changes in the building, I am not building or replacing nothing"
 		newClass := self oldClass.
@@ -319,9 +324,6 @@ ShiftClassInstaller >> updateBindings: aBinding of: newClass [
 { #category : 'notifications' }
 ShiftClassInstaller >> updatePackage: aClass [
 	"If the package is nil we leave the class unclassified"
-	builder package ifNotNil: [ :package | 
-		((self packageOrganizer
-			ensurePackage: package)
-				ensureTag: builder tag)
-					addClass: aClass ]
+
+	builder package ifNotNil: [ :package | ((self packageOrganizer ensurePackage: package) ensureTag: builder tag) addClass: aClass ]
 ]
