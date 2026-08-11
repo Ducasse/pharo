@@ -318,8 +318,11 @@ Object >> asLinkPrepend: anObject [
 { #category : 'converting' }
 Object >> asString [
 	"Answer a string that represents the receiver."
+	self deprecated: 'Do not use asString when you need displayString. The message asString is to convert string/symbol/text like objects between themselves. A domain object should not define asString.
+	This method will be removed!'.
+	
+	^ self displayString
 
-	^ self printString
 ]
 
 { #category : 'asserting' }
