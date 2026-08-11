@@ -82,6 +82,7 @@ PragmaSetting >> acceptSettings: aVisitor [
 
 { #category : 'user interface' }
 PragmaSetting >> asString [
+	self deprecated: 'Do not use asString when you need displayString'.
 	^ self name
 ]
 
