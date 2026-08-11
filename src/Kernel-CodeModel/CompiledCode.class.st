@@ -856,6 +856,12 @@ CompiledCode >> primitiveErrorVariableName [
 	^nil
 ]
 
+{ #category : 'printing' }
+CompiledCode >> printOn: aStream [
+
+	aStream nextPutAll: self sourceCode
+]
+
 { #category : 'accessing - pragmas & properties' }
 CompiledCode >> properties [
 	^ self subclassResponsibility
