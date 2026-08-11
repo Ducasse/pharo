@@ -117,6 +117,12 @@ PragmaSetting >> dialog: aValuable [
 	dialog := aValuable
 ]
 
+{ #category : 'printing' }
+PragmaSetting >> displayPrintOn: aStream [
+
+	aStream print: self name
+]
+
 { #category : 'user interface' }
 PragmaSetting >> enabled [
 	^ true
@@ -210,7 +216,7 @@ PragmaSetting >> printOn: aStream [
 
 	aStream
 		<< '[Setting: ';
-		<< self name asString;
+		print: self name;
 		<< ']'
 ]
 

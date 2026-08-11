@@ -38,6 +38,12 @@ PseudoVariable >> asString [
 	^ self name
 ]
 
+{ #category : 'printing' }
+PseudoVariable >> displayStringOn: aStream [
+	
+	aStream nextPutAll: self name
+]
+
 { #category : 'code generation' }
 PseudoVariable >> emitStore: methodBuilder [
 
@@ -67,9 +73,9 @@ PseudoVariable >> name: aSymbol [
 ]
 
 { #category : 'printing' }
-PseudoVariable >> printOn: stream [
-
-	stream nextPutAll: self name
+PseudoVariable >> printOn: aStream [
+	
+	aStream nextPutAll: self name
 ]
 
 { #category : 'accessing' }
