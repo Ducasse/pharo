@@ -64,7 +64,7 @@ OCMethodInstaller >> install: method into: behavior compiler: compiler [
 				of: method
 				withFooter: ''
 				protocol: self protocolName
-				timestamp: self changeStamp printString
+				timestamp: self changeStamp asString
 				priorSourcePointer: self priorSourcePointer ].
 			
 	"Install the method and classify AFTER setting the source pointer.
