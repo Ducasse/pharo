@@ -96,6 +96,14 @@ ReProperMethodProtocolNameRule >> critiqueFor: aMethod [
 ]
 
 { #category : 'accessing' }
+ReProperMethodProtocolNameRule >> initialize [ 
+	
+
+	super initialize.
+	self methodProtocolName: ''
+]
+
+{ #category : 'accessing' }
 ReProperMethodProtocolNameRule >> methodProtocolName [
 
 	^ methodProtocolName
