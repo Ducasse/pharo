@@ -62,7 +62,7 @@ ReProperMethodProtocolNameRule class >> rationale [
 { #category : 'accessing' }
 ReProperMethodProtocolNameRule class >> ruleName [
 
-	^ 'Method categorization: use ''' , self goodMethodProtocolName , ''' as protocol name instead of ''' , self badMethodProtocolNames asString , ''''
+	^ 'Method categorization: use ''' , self goodMethodProtocolName , ''' as protocol name instead of ''' , self badMethodProtocolNames displayString , ''''
 ]
 
 { #category : 'private - utilities' }
