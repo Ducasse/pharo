@@ -100,7 +100,7 @@ ReProperMethodProtocolNameRule >> initialize [
 	
 
 	super initialize.
-	self methodProtocolName: ''
+	self methodProtocolName: #''
 ]
 
 { #category : 'accessing' }
