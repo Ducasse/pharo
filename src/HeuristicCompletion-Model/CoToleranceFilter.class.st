@@ -8,6 +8,7 @@ Class {
 		'decoree'
 	],
 	#classVars : [
+		'Enabled',
 		'MinimumTokenSize',
 		'Rate'
 	],
@@ -81,19 +82,19 @@ CoToleranceFilter class >> defaultRate [
 { #category : 'configuration' }
 CoToleranceFilter class >> disable [
 
-	Rate := -1
+	Enabled := false
 ]
 
 { #category : 'configuration' }
 CoToleranceFilter class >> enable [
 
-	Rate := self defaultRate 
+	Enabled := true
 ]
 
 { #category : 'configuration' }
 CoToleranceFilter class >> enabled [
-
-	^ Rate > 0.0
+	
+	^ Enabled ifNil: [ Enabled := false ] 
 ]
 
 { #category : 'class initialization' }
@@ -125,7 +126,7 @@ CoToleranceFilter class >> rate [
 CoToleranceFilter class >> rate: aNumber [ 
 
 	| value |
-	value := (aNumber ifNil: [ self defaultRate ]) asFloat.
+	value := (aNumber isFloat ifFalse: [ self defaultRate ]) asFloat.
 	Rate := (value max: 0.0) min: 1.0
 ]
 
@@ -133,15 +134,17 @@ CoToleranceFilter class >> rate: aNumber [
 CoToleranceFilter class >> reset [ 
 
 	Rate := self defaultRate.
-	MinimumTokenSize := self defaultMinimumTokenSize
+	MinimumTokenSize := self defaultMinimumTokenSize.
+	Enabled := false.
 	
 ]
 
 { #category : 'algorithms' }
-CoToleranceFilter class >> scoreForCandidate: aCandidateString token: aTokenString caseSensitive: aBoolean tolerance: aTolerance [
-	"Return zero if the candidate matches the token.
+CoToleranceFilter class >> scoreForCandidate: aCandidateString 
+	token: aTokenString 
+	caseSensitive: aBoolean [
 	
-	"
+	"Return zero if the candidate matches the token."
 	| candidate token maxSize maxEdits distance candidatePrefix|
 
 	candidate := aCandidateString asString.
@@ -159,10 +162,10 @@ CoToleranceFilter class >> scoreForCandidate: aCandidateString token: aTokenStri
 		ifFalse: [ token asLowercase ].
 
 	(candidate beginsWith: token) ifTrue: [ ^ 0 ].
-	(self shouldTryFuzzyFor: token candidate: candidate tolerance: aTolerance) ifFalse: [ ^ 0 ].
+	(self shouldTryFuzzyFor: token candidate: candidate) ifFalse: [ ^ 0 ].
 
 	maxSize := token size.
-	maxEdits := (aTolerance * maxSize) floor .
+	maxEdits := (Rate * maxSize) floor.
 	maxEdits <= 0 ifTrue: [ ^ 0 ].
 	
 	"Fuzzy matching is applied only to the first n characters of the candidate,
@@ -180,9 +183,9 @@ CoToleranceFilter class >> scoreForCandidate: aCandidateString token: aTokenStri
 ]
 
 { #category : 'algorithms' }
-CoToleranceFilter class >> shouldTryFuzzyFor: token candidate: candidate tolerance: aTolerance [ 
+CoToleranceFilter class >> shouldTryFuzzyFor: token candidate: candidate [
 
-	(self enabled not or: [ aTolerance <= 0.0 ]) ifTrue: [ ^ false ].
+	Enabled ifFalse: [ ^ false ].
 	token isEmpty ifTrue: [ ^ false ].
 	candidate isEmpty ifTrue: [ ^ false ].
 	token size < self minimumTokenSize ifTrue: [ ^ false ].
@@ -262,7 +265,6 @@ CoToleranceFilter >> fuzzyScoreFor: aCandidate [
 	^ self class scoreForCandidate: aCandidate contents
 		token: decoree completionString
 		caseSensitive: (decoree class = CoCaseSensitiveBeginsWithFilter)
-		tolerance: Rate
 
 ]
 
@@ -299,6 +301,6 @@ CoToleranceFilter >> isMoreNarrowThan: anotherFilter [
 { #category : 'testing' }
 CoToleranceFilter >> requiresFallbackEnumeration [ 
 
-	^ self class  enabled
+	^ self class enabled
 		and: [ decoree completionString size >= self class minimumTokenSize ]
 ]
