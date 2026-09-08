@@ -152,7 +152,7 @@ CoFetcher >> isEmptyCompletionFetcher [
 { #category : 'composing' }
 CoFetcher >> narrowFilter: aFilter narrowKey: aKey [
 
-	self filter: aFilter
+	"self filter: aFilter"
 ]
 
 { #category : 'fetching' }
@@ -189,7 +189,7 @@ CoFetcher >> tokenToCheckFrom: compl withSize: size [
 { #category : 'composing' }
 CoFetcher >> unnarrowFilter: aFilter narrowKey: aKey [
 
-	self filter: aFilter
+	"self filter: aFilter"
 ]
 
 { #category : 'enumerating' }

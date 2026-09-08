@@ -10,12 +10,13 @@ In such a case, some of the results already fetched are still valid, and the fet
 In case the filter is being broadened (e.g., we go from 'abc' to 'ab'), all results we already have are valid, but probably lots of other results were filtered already. So we reset both the results and the fetcher and restart the search.
 "
 Class {
-	#name : 'CoResultSet',
+	#name : 'CoBinnedResultSet',
 	#superclass : 'Object',
 	#instVars : [
 		'results',
 		'fetcher',
-		'filter'
+		'filter',
+		'bins'
 	],
 	#classVars : [
 		'SorterClass'
@@ -26,7 +27,7 @@ Class {
 }
 
 { #category : 'instance creation' }
-CoResultSet class >> fetcher: aFetcher [
+CoBinnedResultSet class >> fetcher: aFetcher [
 
 	^ self new
 		fetcher: aFetcher;
@@ -34,7 +35,7 @@ CoResultSet class >> fetcher: aFetcher [
 ]
 
 { #category : 'instance creation' }
-CoResultSet class >> onContext: aCompletionContext fetcher: aFetcher [
+CoBinnedResultSet class >> onContext: aCompletionContext fetcher: aFetcher [
 
 	^ self new
 		fetcher: aFetcher;
@@ -42,114 +43,125 @@ CoResultSet class >> onContext: aCompletionContext fetcher: aFetcher [
 ]
 
 { #category : 'instance creation' }
-CoResultSet class >> sorterClass [
+CoBinnedResultSet class >> sorterClass [
 
 
 	^ SorterClass
 ]
 
 { #category : 'instance creation' }
-CoResultSet class >> sorterClass: aClass [
+CoBinnedResultSet class >> sorterClass: aClass [
 	"not sure that we will keep it. 
 	For now we do not use it."
 	SorterClass := aClass
 ]
 
 { #category : 'accessing' }
-CoResultSet >> completionToken [
+CoBinnedResultSet >> completionToken [
 
 	^ filter completionString
 ]
 
 { #category : 'enumerating' }
-CoResultSet >> ensureResults: aSize [
+CoBinnedResultSet >> ensureResults: aSize [
 
-	results size >= aSize ifTrue: [ ^ self ].
-	self fetch: aSize - results size
+	self results size >= aSize ifTrue: [ ^ self ].
+	self fetch: aSize - self results size
 ]
 
 { #category : 'fetching' }
-CoResultSet >> fetch: anInteger [
+CoBinnedResultSet >> fetch: requiredNumber [
 
-	| newResults |
-	newResults := fetcher next: anInteger.
-
-	results addAll: newResults
+	| fetched |	
+	fetched := 0.
+	[fetched < requiredNumber] whileTrue: [
+		| newResult |
+		newResult := fetcher next.
+		newResult ifNil: [ ^ nil ].
+		bins
+			detect: [ :bin |
+				bin accepts: newResult ]
+			ifFound: [ :theBin | 
+				theBin add: newResult.
+				fetched := fetched + 1 ].
+	]
 ]
 
 { #category : 'fetching' }
-CoResultSet >> fetchAll [
+CoBinnedResultSet >> fetchAll [
 
+	1halt.
 	results addAll: fetcher upToEnd
 ]
 
 { #category : 'accessing' }
-CoResultSet >> fetcher [
+CoBinnedResultSet >> fetcher [
 	^ fetcher
 ]
 
 { #category : 'accessing' }
-CoResultSet >> fetcher: anObject [
+CoBinnedResultSet >> fetcher: anObject [
 
 	fetcher := anObject
 ]
 
 { #category : 'accessing' }
-CoResultSet >> filter [
+CoBinnedResultSet >> filter [
 
 	^ filter
 ]
 
 { #category : 'accessing' }
-CoResultSet >> filter: aFilter [
+CoBinnedResultSet >> filter: aFilter [
 
 	filter := aFilter.
-	fetcher filter: filter
+	"fetcher filter: filter"
 ]
 
 { #category : 'enumerating' }
-CoResultSet >> first [
+CoBinnedResultSet >> first [
 
 	self ensureResults: 1.
-	^ results first
+	^ self results first
 ]
 
 { #category : 'accessing' }
-CoResultSet >> first: anInteger [
+CoBinnedResultSet >> first: anInteger [
 
 	self ensureResults: anInteger.
 
-	results size > anInteger
-		ifTrue: [ ^ results first: anInteger ].
-	^ results
+	self results size > anInteger
+		ifTrue: [ ^ self results first: anInteger ].
+	^ self results
 ]
 
 { #category : 'testing' }
-CoResultSet >> hasMoreElements [
+CoBinnedResultSet >> hasMoreElements [
 
 	^ fetcher atEnd not
 ]
 
 { #category : 'initialization' }
-CoResultSet >> initialize [
+CoBinnedResultSet >> initialize [
 
 	super initialize.
-	results := OrderedCollection new.
 	filter := CoFilter empty.
 	
+	bins := OrderedCollection new.
+	bins add: (CoBeginsWithBin on: self).
+	bins add: (CoToleranceBin on: self)
 ]
 
 { #category : 'testing' }
-CoResultSet >> notEmpty [
+CoBinnedResultSet >> notEmpty [
 
-	^ results notEmpty or: [ fetcher atEnd not ]
+	^ self results notEmpty or: [ fetcher atEnd not ]
 ]
 
 { #category : 'api-filtering' }
-CoResultSet >> replaceFilterWith: newFilter [
+CoBinnedResultSet >> replaceFilterWith: newFilter [
 
 	"Narrow results"
-
 	newFilter completionString = filter completionString ifTrue: [ ^ self ].
 
 	newFilter completionString size >= filter completionString size
@@ -160,24 +172,21 @@ CoResultSet >> replaceFilterWith: newFilter [
 			"Smaller filter, reset results and filter"
 			fetcher := fetcher unnarrowFilter: newFilter narrowKey: newFilter completionString ].
 
-	results := OrderedCollection new.
+	bins do: [ :bin | bin discardResults ].
 	filter := newFilter
 ]
 
 { #category : 'api-filtering' }
-CoResultSet >> resetFilter [
+CoBinnedResultSet >> resetFilter [
 
+1halt.
 	results removeAll.
 	fetcher reset.
 	fetcher filter: CoFilter empty
 ]
 
 { #category : 'accessing' }
-CoResultSet >> results [
-	^ results
-]
+CoBinnedResultSet >> results [
 
-{ #category : 'accessing' }
-CoResultSet >> results: anObject [
-	results := anObject
+	^ bins flatCollect: [ :bin | bin results ]
 ]
