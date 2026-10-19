@@ -7,9 +7,6 @@ Class {
 	#instVars : [
 		'instVar'
 	],
-	#classVars : [
-		'SharedVar'
-	],
 	#classInstVars : [
 		'classInstVar'
 	],
@@ -22,7 +19,6 @@ ReChangeMock class >> classInsVar [
 
 	^ classInstVar
 ]
-
 
 { #category : 'private' }
 ReChangeMock >> executeNotifying: aBlock [
