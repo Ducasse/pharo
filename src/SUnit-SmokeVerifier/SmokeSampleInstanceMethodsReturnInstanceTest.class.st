@@ -26,26 +26,26 @@ MyProjectSampleInstanceMethodsTest class >> packageNamesToCheck
 - `MyProjectSampleInstanceMethodsTest suite run` runs one test per method.
 "
 Class {
-	#name : 'SmokeSampleInstanceMethodsTest',
+	#name : 'SmokeSampleInstanceMethodsReturnInstanceTest',
 	#superclass : 'SmokePragmaMethodsTest',
 	#category : 'SUnit-SmokeVerifier',
 	#package : 'SUnit-SmokeVerifier'
 }
 
 { #category : 'private' }
-SmokeSampleInstanceMethodsTest class >> isAbstract [
+SmokeSampleInstanceMethodsReturnInstanceTest class >> isAbstract [
 
 	^ self == SmokeSampleInstanceMethodsTest
 ]
 
 { #category : 'accessing' }
-SmokeSampleInstanceMethodsTest class >> pragmaSelector [
+SmokeSampleInstanceMethodsReturnInstanceTest class >> pragmaSelectors [
 
-	^ #sampleInstance
+	^ #('sampleInstance')
 ]
 
 { #category : 'tests' }
-SmokeSampleInstanceMethodsTest >> testSampleInstanceAnswersAnInstanceOfItsClass [
+SmokeSampleInstanceMethodsReturnInstanceTest >> testSampleInstanceAnswersAnInstanceOfItsClass [
 
 	self assert: (self runMethod class includesBehavior: method methodClass instanceSide)
 ]

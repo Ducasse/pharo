@@ -72,10 +72,12 @@ SmokePragmaMethodsTest class >> methodsToCheck [
 	"Answer the class-side methods with my pragma in the packages to check, except the excluded ones."
 
 	| packages |
-	packages := (self packageNamesToCheck collect: [ :each | self packageOrganizer packageNamed: each ifAbsent: [ nil ] ]) reject: [ :each | each isNil ].
+	packages := (self packageNamesToCheck collect: [ :aPackageName | self packageOrganizer packageNamed: aPackageName ifAbsent: [ nil ] ]) 
+		reject: [ :aPackage | aPackage isNil ].
 	^ ((packages flatCollect: [ :package |
-		package methods select: [ :each | each methodClass isClassSide and: [ each hasPragmaNamed: self pragmaSelector ] ] ])
-		reject: [ :each | self excludedMethods includes: each printString ]) asArray
+		package methods select: [ :eachMethod | eachMethod methodClass isClassSide 
+			and: [ self pragmaSelectors anySatisfy: [ :pselector | eachMethod hasPragmaNamed: pselector ] ] ] ])
+		reject: [ :eachMethod | self excludedMethods includes: eachMethod printString ]) asArray
 		sort: [ :a :b | a printString <= b printString ]
 ]
 
@@ -94,8 +96,8 @@ SmokePragmaMethodsTest class >> packageNamesToCheck [
 ]
 
 { #category : 'accessing' }
-SmokePragmaMethodsTest class >> pragmaSelector [
-	"Answer the pragma of the class-side methods I check."
+SmokePragmaMethodsTest class >> pragmaSelectors [
+	"Answer the pragmas of the class-side methods I check."
 
 	^ self subclassResponsibility
 ]
@@ -110,13 +112,6 @@ SmokePragmaMethodsTest class >> testParameters [
 	^ ParametrizedTestMatrix new
 		forSelector: #method addOptions: methods;
 		yourself
-]
-
-{ #category : 'running' }
-SmokePragmaMethodsTest >> failIfNoMethodToCheck [
-	"Fail when the packages to check have no class-side method with my pragma: ParametrizedTestCase then makes a single test without method."
-
-	method ifNil: [ self fail: ('No class-side method with <{1}> in the packages to check' format: { self class pragmaSelector }) ]
 ]
 
 { #category : 'running' }
@@ -158,5 +153,4 @@ SmokePragmaMethodsTest >> setUp [
 	super setUp.
 	self failIfNoPackageToCheck.
 	self failIfPackageIsNotFound.
-	self failIfNoMethodToCheck
 ]

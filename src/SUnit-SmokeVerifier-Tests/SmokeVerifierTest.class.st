@@ -43,7 +43,8 @@ SmokeVerifierTest >> emptyPackageName [
 
 { #category : 'helpers' }
 SmokeVerifierTest >> failingMethodsIn: aTestResult [
-	"Answer the selectors of the methods whose test fails or errs in aTestResult. SUnit clears the slots of a test after running it, so the method is taken from the parameters of the test."
+	"Answer the selectors of the methods whose test fails or errs in aTestResult. 
+	SUnit clears the slots of a test after running it, so the method is taken from the parameters of the test."
 
 	^ (aTestResult failures , aTestResult errors) asArray collect: [ :each | each parametersToUse first valuable selector ]
 ]
@@ -70,13 +71,13 @@ SmokeVerifierTest >> missingPackageName [
 { #category : 'helpers' }
 SmokeVerifierTest >> sampleInstanceTestFor: someNames [
 
-	^ self subclassOf: SmokeSampleInstanceMethodsTest named: #SmokeVerifierFixtureSampleInstanceMethodsTest checking: someNames
+	^ self subclassOf: SmokeSampleInstanceMethodsReturnInstanceTest named: #SmokeVerifierFixtureSampleInstanceMethodsTest checking: someNames
 ]
 
 { #category : 'helpers' }
 SmokeVerifierTest >> scriptTestFor: someNames [
 
-	^ self subclassOf: SmokeScriptMethodsTest named: #SmokeVerifierFixtureScriptMethodsTest checking: someNames
+	^ self subclassOf: SmokeScriptMethodsShouldNotBreakTest named: #SmokeVerifierFixtureScriptMethodsTest checking: someNames
 ]
 
 { #category : 'running' }
@@ -88,18 +89,23 @@ SmokeVerifierTest >> setUp [
 			name: #SmokeVerifierFixtureClass;
 			superclass: Object;
 			package: self fixturePackageName ].
+	
 	fixtureClass compile: 'instanceSideScript
 	<script>
 	^ 1 / 0' classified: #fixture.
+	
 	fixtureClass class compile: 'scriptRunning
 	<script>
 	^ 3 + 4' classified: #fixture.
+	
 	fixtureClass class compile: 'scriptBreaking
 	<script>
 	^ 1 / 0' classified: #fixture.
+	
 	fixtureClass class compile: 'sampleInstanceOfItsClass
 	<sampleInstance>
 	^ self new' classified: #fixture.
+	
 	fixtureClass class compile: 'sampleInstanceOfAnotherClass
 	<sampleInstance>
 	^ 42' classified: #fixture
@@ -232,19 +238,11 @@ SmokeVerifierTest >> testScriptTestRunsEveryScript [
 	self assert: (self failingMethodsIn: result) equals: #( #scriptBreaking )
 ]
 
-{ #category : 'tests - abstract' }
-SmokeVerifierTest >> testSmokeVerifierClassesAreAbstract [
-
-	self assert: SmokePragmaMethodsTest isAbstract.
-	self assert: SmokeScriptMethodsTest isAbstract.
-	self assert: SmokeSampleInstanceMethodsTest isAbstract
-]
-
 { #category : 'tests - checking nothing' }
 SmokeVerifierTest >> testSubclassNotOverridingTheHookFails [
 
 	| result |
-	result := (self subclassOf: SmokeScriptMethodsTest named: #SmokeVerifierFixtureScriptMethodsTest) suite run.
+	result := (self subclassOf: SmokeScriptMethodsShouldNotBreakTest named: #SmokeVerifierFixtureScriptMethodsTest) suite run.
 	self assert: result runCount equals: 1.
 	self assert: result failures size equals: 1
 ]

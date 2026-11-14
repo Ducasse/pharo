@@ -26,26 +26,32 @@ MyProjectScriptMethodsTest class >> packageNamesToCheck
 - `MyProjectScriptMethodsTest suite run` runs one test per script.
 "
 Class {
-	#name : 'SmokeScriptMethodsTest',
+	#name : 'SmokeScriptMethodsShouldNotBreakTest',
 	#superclass : 'SmokePragmaMethodsTest',
 	#category : 'SUnit-SmokeVerifier',
 	#package : 'SUnit-SmokeVerifier'
 }
 
 { #category : 'private' }
-SmokeScriptMethodsTest class >> isAbstract [
+SmokeScriptMethodsShouldNotBreakTest class >> isAbstract [
 
 	^ self == SmokeScriptMethodsTest
 ]
 
 { #category : 'accessing' }
-SmokeScriptMethodsTest class >> pragmaSelector [
+SmokeScriptMethodsShouldNotBreakTest class >> pragmaSelectors [
 
-	^ #script
+	^ #(script example)
 ]
 
 { #category : 'tests' }
-SmokeScriptMethodsTest >> testScriptRunsWithoutError [
+SmokeScriptMethodsShouldNotBreakTest >> scriptRunsWithoutError [
 
-	self runMethod
+	self shouldnt: [ self runMethod ] raise: Error
+]
+
+{ #category : 'tests' }
+SmokeScriptMethodsShouldNotBreakTest >> testScriptRunsWithoutError [
+
+	self shouldnt: [ self runMethod ] raise: Error
 ]
